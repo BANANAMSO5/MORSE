@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MoveManager : MonoBehaviour
 {
+    [HideInInspector]
+    public GameObject playerObject;
+
     public float time = 0f;
     public float duration = 60f;
     public float moveDistance = 3.0f;
@@ -29,26 +32,26 @@ public class MoveManager : MonoBehaviour
                 float t = time / duration;
 
                 // 移動
-                transform.position = Vector3.Lerp(startPos, endPos, t);
+                playerObject.transform.position = Vector3.Lerp(startPos, endPos, t);
 
                 // 変形
                 float stretch = Mathf.Lerp(1f, maxStretch, Mathf.Sin(t * Mathf.PI));
-                transform.localScale = new Vector3(stretch, 1f, 1f);
+                playerObject.transform.localScale = new Vector3(stretch, 1f, 1f);
 
                 time += 1;
                 
-                Debug.Log("duration:" + duration);
-                Debug.Log("t:" + t);
-                Debug.Log("time:" + time);
+                // Debug.Log("duration:" + duration);
+                // Debug.Log("t:" + t);
+                // Debug.Log("time:" + time);
             }
             else
             {
                 isMove = false;
                 time = 0;
 
-                Debug.Log("isMove:" + isMove);
-                Debug.Log("startPos:" + startPos);
-                Debug.Log("endPos:" + endPos);
+                // Debug.Log("isMove:" + isMove);
+                // Debug.Log("startPos:" + startPos);
+                // Debug.Log("endPos:" + endPos);
 
                 return;
             }
@@ -58,14 +61,14 @@ public class MoveManager : MonoBehaviour
     public void MoveLeft()
     {
         isMove = true;
-        startPos = transform.position;
+        startPos = playerObject.transform.position;
         endPos = startPos + Vector3.left * moveDistance; 
     }
 
     public void MoveRight()
     {
         isMove = true;
-        startPos = transform.position;
+        startPos = playerObject.transform.position;
         endPos = startPos + Vector3.right * moveDistance; 
     }
 
@@ -75,7 +78,7 @@ public class MoveManager : MonoBehaviour
     {
         float time = 0f;
 
-        Vector3 startPos = transform.position;
+        Vector3 startPos = playerObject.transform.position;
         Vector3 endPos = startPos + new Vector3(moveDistance * (Dist ? 1 : -1), 0, 0);
 
         while (time < duration)
@@ -83,12 +86,12 @@ public class MoveManager : MonoBehaviour
             float t = Mathf.Clamp01(time / duration); // ← 共通の時間
 
             // 移動（最初から最後まで同じ時間）
-            transform.position = Vector3.Lerp(startPos, endPos, t);
+            playerObject.transform.position = Vector3.Lerp(startPos, endPos, t);
 
             // 変形（同じtを使って前半伸びて後半戻る）
             float stretch = Mathf.Lerp(1f, maxStretch, Mathf.Sin(t * Mathf.PI));
 
-            transform.localScale = new Vector3(stretch, 1f, 1f);
+            playerObject.transform.localScale = new Vector3(stretch, 1f, 1f);
 
             time += Time.deltaTime / duration;
 
@@ -97,7 +100,7 @@ public class MoveManager : MonoBehaviour
         }
 
         // 最終補正
-        transform.position = endPos;
-        transform.localScale = Vector3.one;
+        playerObject.transform.position = endPos;
+        playerObject.transform.localScale = Vector3.one;
     }
 }

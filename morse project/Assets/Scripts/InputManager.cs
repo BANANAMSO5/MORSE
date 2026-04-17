@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    [HideInInspector]
+    public GameObject playerObject; 
+
+    [HideInInspector]
     public MoveManager mm;
+
+    [HideInInspector]
     public BulletManager bm;
 
     float pressStartTime;
