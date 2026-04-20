@@ -19,9 +19,9 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isMove = true;
-        startPos = transform.position + Vector3.right * 0.5f;
-        endPos = startPos + Vector3.right * distance;
+        // isMove = true;
+        // startPos = transform.position + Vector3.right * 0.5f;
+        // endPos = startPos + Vector3.right * distance;
     }
 
     // Update is called once per frame
@@ -49,13 +49,17 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void Shot(Vector3 position)
+    public void Shot(int id, int direction)
     {
         isMove = true;
-        startPos = position + Vector3.right * 0.5f;
-        endPos = startPos + Vector3.right * distance;
-
-        rend.enabled = true; // 出現
+        this.Id = id;
+        
+        // 弾のみため
+        transform.localScale = new Vector3(direction, direction, transform.localScale.z);
+        
+        // 発射方向
+        startPos = transform.position + Vector3.right * 0.5f * direction;
+        endPos = startPos + Vector3.right * distance * direction;
     }
 
     void OnTriggerEnter2D(Collider2D other)

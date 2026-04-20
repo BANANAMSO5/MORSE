@@ -8,9 +8,11 @@ using UnityEngine;
 public class DependencyManager : MonoBehaviour
 {
     public GameObject playerObject; 
+    public GameObject playerBot;
     public InputManager inputManager;
     public MoveManager moveManager;
     public BulletManager bulletManager;
+    public PositionManager positionManager;
 
 
     void Start()
@@ -21,5 +23,8 @@ public class DependencyManager : MonoBehaviour
         inputManager.playerObject = playerObject;
         inputManager.mm = moveManager;
         inputManager.bm = bulletManager;
+
+        positionManager.player1Object = playerObject;
+        positionManager.player2Object = playerBot;
     }
 }

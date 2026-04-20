@@ -26,7 +26,7 @@ public class BulletManager : MonoBehaviour
         if (bullet != null)
         {
             Debug.Log("player.Id: " + player.Id + "bullet.Id: " + bullet.Id);
-            bullet.Id = player.Id;
+            bullet.Shot(player.Id, player.direction);
         }
     }
 }

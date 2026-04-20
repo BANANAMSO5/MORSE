@@ -6,9 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int Id;
-
     public int direction = 1;
-
     public int Hp = 100;
     public TextMeshPro hpText;
 
