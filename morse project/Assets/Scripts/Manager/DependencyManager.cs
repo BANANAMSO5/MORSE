@@ -7,15 +7,19 @@ using UnityEngine;
 /// </summary>
 public class DependencyManager : MonoBehaviour
 {
+    public GameObject mainCamera;
     public GameObject playerObject; 
     public GameObject playerBot;
     public InputManager inputManager;
     public MoveManager moveManager;
     public BulletManager bulletManager;
     public PositionManager positionManager;
+    public TextUIManager textUIManager;
+    public DamageEffectManager damageEffectManager;
 
 
-    void Start()
+    // 一番最初に実行
+    void Awake()
     {
         moveManager.playerObject = playerObject;
         bulletManager.playerObject = playerObject;
@@ -23,8 +27,14 @@ public class DependencyManager : MonoBehaviour
         inputManager.playerObject = playerObject;
         inputManager.mm = moveManager;
         inputManager.bm = bulletManager;
+        inputManager.textUIManager = textUIManager;
 
         positionManager.player1Object = playerObject;
         positionManager.player2Object = playerBot;
+
+        damageEffectManager.mainCamera = mainCamera;
+        // TODO:いったん敵だけ
+        damageEffectManager.playerObject = playerBot;
+
     }
 }

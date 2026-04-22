@@ -13,6 +13,9 @@ public class InputManager : MonoBehaviour
     [HideInInspector]
     public BulletManager bm;
 
+    [HideInInspector]
+    public TextUIManager textUIManager;
+
     float pressStartTime;
     bool isPressing = false;
 
@@ -104,16 +107,21 @@ public class InputManager : MonoBehaviour
         if (signal == "I")
         {
             mm.MoveRight();
+            textUIManager.Show("Ike!");
         }
         // Modore
         else if (signal == "M")
         {
             mm.MoveLeft();
+            textUIManager.Show("Modore!");
         }
         // Ute
         else if (signal == "U")
         {
             bm.Shot();
+            textUIManager.Show("Ute!");
         }
     }
+
+
 }

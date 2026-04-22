@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
     public int direction = 1;
     public int Hp = 100;
     public TextMeshPro hpText;
+    public Action OnDamage;
 
     public Vector3 Position
     {
@@ -36,6 +38,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("A" + damage);
         Hp -= damage;
+        OnDamage?.Invoke();
         UpdateHPText();
         if (Hp <= 0)
         {
