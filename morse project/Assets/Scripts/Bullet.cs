@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Zenject;
 
 public class Bullet : MonoBehaviour
 {
@@ -9,12 +10,19 @@ public class Bullet : MonoBehaviour
     public float timer = 0f;
     public float moveTime = 1f;   // 1秒
     public float distance = 4.0f;
+    public class Factory : PlaceholderFactory<Bullet> { }
 
     Renderer rend;
     Vector3 startPos;
     Vector3 endPos;
 
     private bool isMove = false;
+
+    [Inject]
+    public void Construct()
+    {
+        Debug.Log("生成");
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -55,11 +63,13 @@ public class Bullet : MonoBehaviour
         this.Id = id;
         
         // 弾のみため
-        transform.localScale = new Vector3(direction, direction, transform.localScale.z);
+        //transform.localScale = new Vector3(direction, direction, transform.localScale.z);
         
         // 発射方向
-        startPos = transform.position + Vector3.right * 0.5f * direction;
-        endPos = startPos + Vector3.right * distance * direction;
+        startPos = transform.position + Vector3.right * 0.5f;
+        endPos = startPos + Vector3.right * distance;
+        Debug.Log(distance);
+        Debug.Log(endPos);
     }
 
     void OnTriggerEnter2D(Collider2D other)

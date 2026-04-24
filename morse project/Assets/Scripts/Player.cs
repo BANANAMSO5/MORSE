@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public TextMeshPro hpText;
     public Action OnDamage;
     public Action<Player> OnDeath;
+    public event Action<Vector3> OnPositionChanged;
 
     public Vector3 Position
     {
@@ -28,6 +29,11 @@ public class Player : MonoBehaviour
     void Init()
     {
         UpdateHPText();
+    }
+
+    void Update()
+    {
+        OnPositionChanged?.Invoke(transform.position);
     }
     
     void OnTriggerEnter2D(Collider2D other)

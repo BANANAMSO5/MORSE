@@ -2,30 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
-public class TextUIManager : MonoBehaviour
+public class TextUIManager : ITextUIManager
 {
-    public CanvasGroup canvasGroup;
     public float displayTime = 1f;
     public float fadeDuration = 1f;
-    public TextMeshProUGUI text;
+    private CanvasGroup _canvasGroup;
+    private TextMeshProUGUI _text;
+    private ICoroutineRunner _coroutineRunner;
     Coroutine fadeCoroutine;
 
-    public void Show(string _text)
+    [Inject]
+    public void Construct(
+        CanvasGroup canvasGroup, 
+        TextMeshProUGUI text,
+        ICoroutineRunner coroutineRunner)
     {
-        text.text = _text;
+        _canvasGroup = canvasGroup;
+        _text = text;
+        _coroutineRunner = coroutineRunner;
+    }
+
+    public void ChangeText(string text)
+    {
+        _text.text = text;
 
         // 既存のコルーチンを止める
         if (fadeCoroutine != null)
         {
-            StopCoroutine(fadeCoroutine);
+            _coroutineRunner.StopProcess(fadeCoroutine);
         }
-        fadeCoroutine = StartCoroutine(FadeOutRoutine());
+        fadeCoroutine = _coroutineRunner.StartProcess(FadeOutRoutine());
     }
 
     IEnumerator FadeOutRoutine()
     {
-        canvasGroup.alpha = 1f;
+        _canvasGroup.alpha = 1f;
 
         yield return new WaitForSeconds(displayTime);
 
@@ -34,10 +47,10 @@ public class TextUIManager : MonoBehaviour
         while (time < fadeDuration)
         {
             time += Time.deltaTime;
-            canvasGroup.alpha = 1f - (time / fadeDuration);
+            _canvasGroup.alpha = 1f - (time / fadeDuration);
             yield return null;
         }
 
-        canvasGroup.alpha = 0f;
+        _canvasGroup.alpha = 0f;
     }
 }

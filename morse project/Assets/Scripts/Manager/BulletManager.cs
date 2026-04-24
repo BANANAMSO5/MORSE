@@ -2,29 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
-public class BulletManager : MonoBehaviour
+public class BulletManager : MonoBehaviour, IBulletManager
 {
-    public GameObject bulletObject; 
+    private Bullet.Factory _factory;
 
     [HideInInspector]
     public Player player;
-    //public Bullet bullet;
 
-    // Start is called before the first frame update
-    void Start()
+    [Inject]
+    public void Construct(Bullet.Factory factory)
     {
-        
+        _factory = factory;
     }
 
     public void Shot()
     {
-        GameObject bulletInstantiate = Instantiate(bulletObject, player.Position, bulletObject.transform.rotation);
-        Bullet bullet = bulletInstantiate.GetComponent<Bullet>();
-        if (bullet != null)
-        {
-            Debug.Log("player.Id: " + player.Id + "bullet.Id: " + bullet.Id);
-            bullet.Shot(player.Id, player.direction);
-        }
+        Bullet bullet = _factory.Create();
+        bullet.transform.position = player.gameObject.transform.position;
+        bullet.Shot(player.Id, player.direction);
     }
 }

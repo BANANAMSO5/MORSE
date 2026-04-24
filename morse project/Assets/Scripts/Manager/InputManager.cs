@@ -1,20 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class InputManager : MonoBehaviour
+public class InputManager : MonoBehaviour, IInputManager
 {
-    [HideInInspector]
-    public GameObject playerObject; 
-
-    [HideInInspector]
-    public MoveManager mm;
-
-    [HideInInspector]
-    public BulletManager bm;
-
-    [HideInInspector]
-    public TextUIManager textUIManager;
+    private ITextUIManager _textUIManager;
 
     float pressStartTime;
     bool isPressing = false;
@@ -24,8 +16,8 @@ public class InputManager : MonoBehaviour
     // 判定のしきい値
     public float dotThreshold = 0.2f;   // これ未満 → ・
     public float letterPause = 0.5f;    // この時間入力がなければ文字確定
-
     float lastInputTime;
+    private Dictionary<string, Action> _actions = new();
 
     // モールス辞書
     Dictionary<string, string> morseDict = new Dictionary<string, string>()
@@ -38,10 +30,27 @@ public class InputManager : MonoBehaviour
         {"--..", "Z"}
     };
 
-    // Start is called before the first frame update
-    void Start()
+    // TODO: 辞書の中に辞書でも良い？
+    Dictionary<string, string> skillDict = new Dictionary<string, string>()
     {
-        //mm = new Player();
+        { "A", "A" }, { "B", "B" }, { "C", "C" }, { "D", "D" }, { "E", "E" },
+        { "F", "F" }, { "G", "G" }, { "H", "H" }, { "I", "Ike" }, { "J", "J" },
+        { "K", "K" }, { "L", "L" }, { "M", "Modore" }, { "N", "N" }, { "O", "O" },
+        { "P", "P" }, { "Q", "Q" }, { "R", "R" }, { "S", "S" }, { "T", "T" },
+        { "U", "Ute" }, { "V", "V" }, { "W", "W" }, { "X", "X" }, { "Y", "Y" },
+        { "Z", "Z" }
+    };
+
+    [Inject]
+    public void Construct(ITextUIManager textUIManager)
+    {
+        _textUIManager = textUIManager;
+
+        // A〜Zを登録可能にする（初期化）
+        for (char key = 'A'; key <= 'Z'; key++)
+        {
+            _actions[key.ToString()] = null;
+        }
     }
 
     // Update is called once per frame
@@ -103,25 +112,19 @@ public class InputManager : MonoBehaviour
 
     void JudgeSignal(string signal)
     {
-        // Ike
-        if (signal == "I")
+        // 入力したアクションを実行
+        _actions[signal].Invoke();
+
+        // UIに表示
+        if (skillDict.TryGetValue(signal, out string result))
         {
-            mm.MoveRight();
-            textUIManager.Show("Ike!");
-        }
-        // Modore
-        else if (signal == "M")
-        {
-            mm.MoveLeft();
-            textUIManager.Show("Modore!");
-        }
-        // Ute
-        else if (signal == "U")
-        {
-            bm.Shot();
-            textUIManager.Show("Ute!");
+            _textUIManager.ChangeText(result);
         }
     }
 
-
+    public void Register(string signal, Action action)
+    {
+        Debug.Log(signal + ":" + action);
+        _actions[signal] += action;
+    }
 }
