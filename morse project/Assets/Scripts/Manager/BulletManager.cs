@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
-public class BulletManager : MonoBehaviour, IBulletManager
+public class BulletManager : IBulletManager
 {
     private Bullet.Factory _factory;
     private Player _player;

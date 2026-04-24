@@ -6,21 +6,20 @@ using Zenject;
 
 public class InputManager : MonoBehaviour, IInputManager
 {
-    private ITextUIManager _textUIManager;
-
-    float pressStartTime;
-    bool isPressing = false;
-
-    List<string> currentSignal = new List<string>();
-
     // 判定のしきい値
     public float dotThreshold = 0.2f;   // これ未満 → ・
     public float letterPause = 0.5f;    // この時間入力がなければ文字確定
-    float lastInputTime;
+
+    private float pressStartTime;
+    private bool isPressing = false;
+    private List<string> currentSignal = new List<string>();
+    private float lastInputTime;
     private Dictionary<string, Action> _actions = new();
+    private Action<string> _changeText;
+    private Action _pauseMenu;
 
     // モールス辞書
-    Dictionary<string, string> morseDict = new Dictionary<string, string>()
+    private Dictionary<string, string> morseDict = new Dictionary<string, string>()
     {
         {".-", "A"}, {"-...", "B"}, {"-.-.", "C"}, {"-..", "D"}, {".", "E"},
         {"..-.", "F"}, {"--.", "G"}, {"....", "H"}, {"..", "I"}, {".---", "J"},
@@ -30,22 +29,9 @@ public class InputManager : MonoBehaviour, IInputManager
         {"--..", "Z"}
     };
 
-    // TODO: 辞書の中に辞書でも良い？
-    Dictionary<string, string> skillDict = new Dictionary<string, string>()
-    {
-        { "A", "A" }, { "B", "B" }, { "C", "C" }, { "D", "D" }, { "E", "E" },
-        { "F", "F" }, { "G", "G" }, { "H", "H" }, { "I", "Ike" }, { "J", "J" },
-        { "K", "K" }, { "L", "L" }, { "M", "Modore" }, { "N", "N" }, { "O", "O" },
-        { "P", "P" }, { "Q", "Q" }, { "R", "R" }, { "S", "S" }, { "T", "T" },
-        { "U", "Ute" }, { "V", "V" }, { "W", "W" }, { "X", "X" }, { "Y", "Y" },
-        { "Z", "Z" }
-    };
-
     [Inject]
-    public void Construct(ITextUIManager textUIManager)
+    public void Construct()
     {
-        _textUIManager = textUIManager;
-
         // A〜Zを登録可能にする（初期化）
         for (char key = 'A'; key <= 'Z'; key++)
         {
@@ -92,6 +78,12 @@ public class InputManager : MonoBehaviour, IInputManager
                 currentSignal.Clear();
             }
         }
+
+        // Escが押されたとき
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _pauseMenu?.Invoke();
+        }
     }
 
     void DecodeSignal()
@@ -114,17 +106,22 @@ public class InputManager : MonoBehaviour, IInputManager
     {
         // 入力したアクションを実行
         _actions[signal]?.Invoke();
-
-        // UIに表示
-        if (skillDict.TryGetValue(signal, out string result))
-        {
-            _textUIManager.ChangeText(result);
-        }
+        _changeText?.Invoke(signal);
     }
 
-    public void Register(string signal, Action action)
+    public void RegisterAction(string signal, Action action)
     {
         Debug.Log(signal + ":" + action);
         _actions[signal] += action;
+    }
+
+    public void RegisterChangeTextAction(Action<string> action)
+    {
+        _changeText += action;
+    }
+
+    public void RegisterPauseMenu(Action action)
+    {
+        _pauseMenu += action;
     }
 }

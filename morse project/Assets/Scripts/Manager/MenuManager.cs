@@ -1,37 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class MenuManager : MonoBehaviour
+public class MenuManager : IMenuManager
 {
-    public GameObject pausePanel;
+    public Canvas _pausePanel;
     private bool isPaused = false;
 
-    void Update()
+    [Inject]
+    public void Construct(Canvas pausePanel)
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        _pausePanel = pausePanel;
+    }
+
+    public void SwitchMenuMode()
+    {
+        if (isPaused)
         {
-            if (isPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
+            Resume();
+        }
+        else
+        {
+            Pause();
         }
     }
 
-    void Pause()
+    private void Pause()
     {
-        pausePanel.SetActive(true);
+        _pausePanel.gameObject.SetActive(true);
         Time.timeScale = 0f; // ゲーム停止
         isPaused = true;
     }
 
-    void Resume()
+    private void Resume()
     {
-        pausePanel.SetActive(false);
+        _pausePanel.gameObject.SetActive(false);
         Time.timeScale = 1f; // 再開
         isPaused = false;
     }

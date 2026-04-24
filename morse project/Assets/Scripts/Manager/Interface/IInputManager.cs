@@ -5,5 +5,7 @@ using UnityEngine;
 
 public interface IInputManager
 {
-    void Register(string signal, Action action);
+    void RegisterAction(string signal, Action action);
+    void RegisterChangeTextAction(Action<string> action);
+    void RegisterPauseMenu(Action action);
 }

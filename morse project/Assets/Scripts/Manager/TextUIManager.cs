@@ -11,7 +11,17 @@ public class TextUIManager : ITextUIManager
     private CanvasGroup _canvasGroup;
     private TextMeshProUGUI _text;
     private ICoroutineRunner _coroutineRunner;
-    Coroutine fadeCoroutine;
+    private Coroutine fadeCoroutine;
+
+    Dictionary<string, string> skillDict = new Dictionary<string, string>()
+    {
+        { "A", "A" }, { "B", "B" }, { "C", "C" }, { "D", "D" }, { "E", "E" },
+        { "F", "F" }, { "G", "G" }, { "H", "H" }, { "I", "Ike" }, { "J", "J" },
+        { "K", "K" }, { "L", "L" }, { "M", "Modore" }, { "N", "N" }, { "O", "O" },
+        { "P", "P" }, { "Q", "Q" }, { "R", "R" }, { "S", "S" }, { "T", "T" },
+        { "U", "Ute" }, { "V", "V" }, { "W", "W" }, { "X", "X" }, { "Y", "Y" },
+        { "Z", "Z" }
+    };
 
     [Inject]
     public void Construct(
@@ -26,14 +36,18 @@ public class TextUIManager : ITextUIManager
 
     public void ChangeText(string text)
     {
-        _text.text = text;
-
-        // 既存のコルーチンを止める
-        if (fadeCoroutine != null)
+        // UIに表示
+        if (skillDict.TryGetValue(text, out string skillName))
         {
-            _coroutineRunner.StopProcess(fadeCoroutine);
+            _text.text = skillName;
+
+            // 既存のコルーチンを止める
+            if (fadeCoroutine != null)
+            {
+                _coroutineRunner.StopProcess(fadeCoroutine);
+            }
+            fadeCoroutine = _coroutineRunner.StartProcess(FadeOutRoutine());
         }
-        fadeCoroutine = _coroutineRunner.StartProcess(FadeOutRoutine());
     }
 
     IEnumerator FadeOutRoutine()

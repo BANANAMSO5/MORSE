@@ -9,24 +9,32 @@ public class KeyAssignManager : IKeyAssignManager
     private IInputManager _inputManager;
     private IMoveManager _moveManager;
     private IBulletManager _bulletManager;
+    private ITextUIManager _textUIManager;
+    private IMenuManager _menuManager;
 
     [Inject]
     public void Construct(
         IInputManager inputManager,
         IMoveManager moveManager,
-        IBulletManager bulletManager)
+        IBulletManager bulletManager,
+        ITextUIManager textUIManager,
+        IMenuManager menuManager)
     {
         _inputManager = inputManager;
         _moveManager = moveManager;
         _bulletManager = bulletManager;
-
-        Debug.Log("KeyAssignManager init");
+        _textUIManager = textUIManager;
+        _menuManager = menuManager;
     }
 
     public void KeyAssign()
     {
-        _inputManager.Register("I", _moveManager.MoveRight);
-        _inputManager.Register("M", _moveManager.MoveLeft);
-        _inputManager.Register("U", _bulletManager.Shot);
+        _inputManager.RegisterAction("I", _moveManager.MoveRight);
+        _inputManager.RegisterAction("M", _moveManager.MoveLeft);
+        _inputManager.RegisterAction("U", _bulletManager.Shot);
+
+        _inputManager.RegisterChangeTextAction(_textUIManager.ChangeText);
+
+        _inputManager.RegisterPauseMenu(_menuManager.SwitchMenuMode);
     }
 }
