@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public int Hp = 100;
     public TextMeshPro hpText;
     public Action OnDamage;
+    public Action<Player> OnDeath;
 
     public Vector3 Position
     {
@@ -42,8 +43,7 @@ public class Player : MonoBehaviour
         UpdateHPText();
         if (Hp <= 0)
         {
-            UpdateHPText();
-            //Die();  // HPが0以下になった場合、プレイヤーが死亡
+            OnDeath.Invoke(this);
         }
     }
 

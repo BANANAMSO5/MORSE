@@ -16,13 +16,20 @@ public class DependencyManager : MonoBehaviour
     public PositionManager positionManager;
     public TextUIManager textUIManager;
     public DamageEffectManager damageEffectManager;
+    public MatchManager matchManager;
 
+
+    Player player1;
+    Player player2;
 
     // 一番最初に実行
     void Awake()
     {
+        player1 = playerObject.GetComponent<Player>();
+        player2 = playerBot.GetComponent<Player>();
+
         moveManager.playerObject = playerObject;
-        bulletManager.playerObject = playerObject;
+        bulletManager.player = player1;
 
         inputManager.playerObject = playerObject;
         inputManager.mm = moveManager;
@@ -36,5 +43,7 @@ public class DependencyManager : MonoBehaviour
         // TODO:いったん敵だけ
         damageEffectManager.playerObject = playerBot;
 
+        matchManager.player1 = player1;
+        matchManager.player2 = player2;
     }
 }

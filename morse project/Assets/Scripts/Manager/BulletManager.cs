@@ -8,7 +8,7 @@ public class BulletManager : MonoBehaviour
     public GameObject bulletObject; 
 
     [HideInInspector]
-    public GameObject playerObject;
+    public Player player;
     //public Bullet bullet;
 
     // Start is called before the first frame update
@@ -19,8 +19,6 @@ public class BulletManager : MonoBehaviour
 
     public void Shot()
     {
-        Player player = playerObject.GetComponent<Player>();
-
         GameObject bulletInstantiate = Instantiate(bulletObject, player.Position, bulletObject.transform.rotation);
         Bullet bullet = bulletInstantiate.GetComponent<Bullet>();
         if (bullet != null)
