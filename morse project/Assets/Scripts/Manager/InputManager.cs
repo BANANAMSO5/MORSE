@@ -113,7 +113,7 @@ public class InputManager : MonoBehaviour, IInputManager
     void JudgeSignal(string signal)
     {
         // 入力したアクションを実行
-        _actions[signal].Invoke();
+        _actions[signal]?.Invoke();
 
         // UIに表示
         if (skillDict.TryGetValue(signal, out string result))

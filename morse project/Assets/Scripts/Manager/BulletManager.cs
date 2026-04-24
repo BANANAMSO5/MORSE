@@ -7,20 +7,19 @@ using Zenject;
 public class BulletManager : MonoBehaviour, IBulletManager
 {
     private Bullet.Factory _factory;
-
-    [HideInInspector]
-    public Player player;
+    private Player _player;
 
     [Inject]
-    public void Construct(Bullet.Factory factory)
+    public void Construct(Bullet.Factory factory, [Inject(Id = "player1")]Player player)
     {
         _factory = factory;
+        _player = player;
     }
 
     public void Shot()
     {
         Bullet bullet = _factory.Create();
-        bullet.transform.position = player.gameObject.transform.position;
-        bullet.Shot(player.Id, player.direction);
+        bullet.transform.position = _player.gameObject.transform.position;
+        bullet.Shot(_player.Id, _player.direction);
     }
 }
