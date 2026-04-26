@@ -19,7 +19,7 @@ public class BulletManager : IBulletManager
     public void Shot()
     {
         Bullet bullet = _factory.Create();
-        bullet.transform.position = _player.gameObject.transform.position;
-        bullet.Shot(_player.Id, _player.direction);
+        //bullet.transform.position = _player.gameObject.transform.position;
+        bullet.Shot(_player.team, _player.direction);
     }
 }

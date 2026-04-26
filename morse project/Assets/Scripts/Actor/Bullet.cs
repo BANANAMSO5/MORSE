@@ -6,7 +6,7 @@ using Zenject;
 
 public class Bullet : MonoBehaviour
 {
-    public int Id;
+    public Team team;
     public float timer = 0f;
     public float moveTime = 1f;   // 1秒
     public float distance = 4.0f;
@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     [Inject]
     public void Construct()
     {
-        Debug.Log("生成");
+        Debug.Log("ロケット生成");
     }
 
     // Start is called before the first frame update
@@ -57,10 +57,10 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void Shot(int id, int direction)
+    public void Shot(Team team, int direction)
     {
         isMove = true;
-        this.Id = id;
+        this.team = team;
         
         // 弾のみため
         //transform.localScale = new Vector3(direction, direction, transform.localScale.z);
@@ -79,12 +79,13 @@ public class Bullet : MonoBehaviour
         // プレイヤーに衝突した場合
         if (other.CompareTag("Player"))
         {
-            Player player = other.GetComponent<Player>();  // プレイヤーのPlayerスクリプトを取得
+            Player player = other.GetComponent<Player>();
+            PlayerHealth health = other.GetComponent<PlayerHealth>();  // プレイヤーのPlayerスクリプトを取得
             if (player != null)
             {
-                Debug.Log("player.Id: " + player.Id + "this.Id: " + this.Id);  // タグを確認
-                if (player.Id == this.Id) { return; }
-                player.TakeDamage(10);  // プレイヤーにダメージを与える
+                Debug.Log("player.Id: " + player.team + "this.Id: " + this.team);  // タグを確認
+                if (player.team == this.team) { return; }
+                health.TakeDamage(10);  // プレイヤーにダメージを与える
                 Destroy(gameObject);
             }
         }

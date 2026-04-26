@@ -14,7 +14,15 @@ public class InputManager : MonoBehaviour, IInputManager
     private bool isPressing = false;
     private List<string> currentSignal = new List<string>();
     private float lastInputTime;
-    private Dictionary<string, Action> _actions = new();
+    private Dictionary<string, Action> _actions = new Dictionary<string, Action>
+    {
+        { "A", null },{ "B", null },{ "C", null },{ "D", null },{ "E", null },
+        { "F", null },{ "G", null },{ "H", null },{ "I", null },{ "J", null },
+        { "K", null },{ "L", null },{ "M", null },{ "N", null },{ "O", null },
+        { "P", null },{ "Q", null },{ "R", null },{ "S", null },{ "T", null },
+        { "U", null },{ "V", null },{ "W", null },{ "X", null },{ "Y", null },
+        { "Z", null }
+    };
     private Action<string> _changeText;
     private Action _pauseMenu;
 
@@ -28,16 +36,6 @@ public class InputManager : MonoBehaviour, IInputManager
         {"..-", "U"}, {"...-", "V"}, {".--", "W"}, {"-..-", "X"}, {"-.--", "Y"},
         {"--..", "Z"}
     };
-
-    [Inject]
-    public void Construct()
-    {
-        // A〜Zを登録可能にする（初期化）
-        for (char key = 'A'; key <= 'Z'; key++)
-        {
-            _actions[key.ToString()] = null;
-        }
-    }
 
     // Update is called once per frame
     void Update()

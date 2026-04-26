@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class MatchManager : MonoBehaviour
+public class MatchManager : IMatchManager
 {
     private Player _player1;
     private Player _player2;
@@ -13,8 +13,8 @@ public class MatchManager : MonoBehaviour
     {
         _player1 = player1;
         _player2 = player2;
-        _player1.OnDeath += DecisionMatch;
-        _player2.OnDeath += DecisionMatch;
+        // _player1.OnDeath += DecisionMatch;
+        // _player2.OnDeath += DecisionMatch;
     }
 
     public void DecisionMatch(Player deadPlayer)

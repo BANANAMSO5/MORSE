@@ -29,12 +29,15 @@ public class KeyAssignManager : IKeyAssignManager
 
     public void KeyAssign()
     {
-        _inputManager.RegisterAction("I", _moveManager.MoveRight);
-        _inputManager.RegisterAction("M", _moveManager.MoveLeft);
-        _inputManager.RegisterAction("U", _bulletManager.Shot);
+        // スキル・行動などを登録
+        // _inputManager.RegisterAction("I", _moveManager.MoveRight);
+        // _inputManager.RegisterAction("M", _moveManager.MoveLeft);
+        // _inputManager.RegisterAction("U", _bulletManager.Shot);
 
-        _inputManager.RegisterChangeTextAction(_textUIManager.ChangeText);
+        // // 入力された文字を表示
+        // _inputManager.RegisterChangeTextAction(_textUIManager.ChangeText);
 
-        _inputManager.RegisterPauseMenu(_menuManager.SwitchMenuMode);
+        // // メニュー画面
+        // _inputManager.RegisterPauseMenu(_menuManager.SwitchMenuMode);
     }
 }

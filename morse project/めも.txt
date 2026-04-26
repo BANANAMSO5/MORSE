@@ -1,0 +1,37 @@
+Player
+→プロパティはHp,Teamなど
+→ふるまいはAttack、Health、Positionなどにもつ
+→もつだけ？
+
+
+Bullet
+→TeamやDamageなどのプロパティ
+→生成されたらその通りにうごくだけ
+
+
+Attack
+にだれの攻撃か(Team)もたせる？
+
+
+Input
+→キーの入力のみを監視→イベント発行
+→イベント登録の仕組み自体は今のままで
+→１人１つ（インターフェースをもとにPlayer1,2やCPUなどを生成する）
+
+
+KeyAssign
+→キー割り当てを一元管理
+→これ自体は１つ(ルールのみを提供)
+
+
+
+
+ZenjectException: Unable to resolve 'IClass' while building object with type 'Player'. 
+
+Container.Bind<IClass>()
+            .To<Class>()
+            .FromComponentOnRoot().AsSingle();
+
+
+
+

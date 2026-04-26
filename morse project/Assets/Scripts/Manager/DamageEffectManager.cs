@@ -21,12 +21,12 @@ public class DamageEffectManager : MonoBehaviour
         originalPos = mainCamera.transform.localPosition;
         
         player = playerObject.GetComponent<Player>();
-        player.OnDamage += Shake;
+        //player.OnDamage += Shake;
     }
 
     void OnDestroy()
     {
-        player.OnDamage -= Shake;
+        //player.OnDamage -= Shake;
     }
 
     public void Shake()

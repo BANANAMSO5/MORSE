@@ -34,9 +34,8 @@ public class MainSceneInstaller : MonoInstaller
         
         // MonoBehaviourを使用するManager類
         // TODO: FromComponentInHierarchy検討
-        Container.Bind<IInputManager>()
-            .To<InputManager>()
-            .FromComponentInHierarchy().AsSingle();
+        
+        
         Container.Bind<IMoveManager>()
             .To<MoveManager>()
             .FromComponentInHierarchy().AsSingle();
@@ -45,13 +44,13 @@ public class MainSceneInstaller : MonoInstaller
             .FromComponentInHierarchy().AsSingle();
         
         // 純C#Managerなど
-        Container.BindInterfacesTo<GameInitializer>().AsSingle();
+        // Container.BindInterfacesTo<GameInitializer>().AsSingle();
         Container.Bind<IBulletManager>().To<BulletManager>().AsSingle();
         Container.Bind<IPositionManager>().To<PositionManager>().AsSingle();
         Container.Bind<ITextUIManager>().To<TextUIManager>().AsSingle();
         Container.Bind<DamageEffectManager>().AsSingle();
-        Container.Bind<MatchManager>().AsSingle();
-        Container.Bind<IKeyAssignManager>().To<KeyAssignManager>().AsSingle();
+        Container.Bind<IMatchManager>().To<MatchManager>().AsSingle();
+        // Container.Bind<IKeyAssignManager>().To<KeyAssignManager>().AsSingle();
         Container.Bind<IMenuManager>().To<MenuManager>().AsSingle();
     }
 }
