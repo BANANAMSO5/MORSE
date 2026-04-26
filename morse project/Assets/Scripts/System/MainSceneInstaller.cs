@@ -36,7 +36,7 @@ public class MainSceneInstaller : MonoInstaller
             .FromInstance(pausePanel);
 
         // Prefab
-        Container.BindFactory<int, Player, PlayerFactory>()
+        Container.BindFactory<int, IPlayer, PlayerFactory>()
             .FromSubContainerResolve()
             .ByNewPrefabInstaller<PlayerInstaller>(playerPrefab);
         // MonoBehaviourを使用するManager類

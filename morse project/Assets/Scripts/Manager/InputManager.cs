@@ -42,7 +42,7 @@ public class InputManager : MonoBehaviour, IInputManager
     [Inject]
     public void Construct(int playerId)
     {
-        bool _isLocalPlayer = playerId == TestGameManager.Instance.Id;
+        bool _isLocalPlayer = playerId == TestGameManager.Id;
 
         Debug.Log("_isLocalPlayer:" + _isLocalPlayer);
         enabled = _isLocalPlayer;

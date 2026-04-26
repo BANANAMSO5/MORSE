@@ -6,7 +6,7 @@ using Zenject;
 public class TestGameManager : MonoBehaviour
 {
     public static TestGameManager Instance { get; private set; }
-    public int Id;
+    public static int Id;
 
 
     [Inject]
