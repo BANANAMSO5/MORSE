@@ -15,7 +15,7 @@ public class MoveManager : MonoBehaviour, IMoveManager
     Vector3 endPos;
 
     [Inject]
-    public void Construct([Inject(Id = "player1")]Player player)
+    public void Construct(int playerId)
     {
     }
 

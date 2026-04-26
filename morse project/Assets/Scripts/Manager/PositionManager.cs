@@ -14,7 +14,7 @@ public class PositionManager : IPositionManager
     private Vector3 _position1;
     private Vector3 _position2;
 
-    [Inject]
+    // [Inject]
     public void Construct([Inject(Id = "player1")]Player player1, [Inject(Id = "player2")]Player player2)
     {
         _player1 = player1;

@@ -8,7 +8,7 @@ public class MatchManager : IMatchManager
     private Player _player1;
     private Player _player2;
 
-    [Inject]
+    // [Inject]
     public void Construct([Inject(Id = "player1")]Player player1, [Inject(Id = "player2")]Player player2)
     {
         _player1 = player1;

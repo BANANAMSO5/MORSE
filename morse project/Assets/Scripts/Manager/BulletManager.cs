@@ -9,7 +9,7 @@ public class BulletManager : IBulletManager
     private Bullet.Factory _factory;
     private Player _player;
 
-    [Inject]
+    // [Inject]
     public void Construct(Bullet.Factory factory, [Inject(Id = "player1")]Player player)
     {
         _factory = factory;

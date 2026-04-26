@@ -6,7 +6,7 @@ using Zenject;
 
 public class Bullet : MonoBehaviour
 {
-    public Team team;
+    public int team;
     public float timer = 0f;
     public float moveTime = 1f;   // 1秒
     public float distance = 4.0f;
@@ -57,7 +57,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void Shot(Team team, int direction)
+    public void Shot(int team, int direction)
     {
         isMove = true;
         this.team = team;

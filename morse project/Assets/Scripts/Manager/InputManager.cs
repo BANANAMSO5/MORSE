@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;
 
@@ -36,6 +37,16 @@ public class InputManager : MonoBehaviour, IInputManager
         {"..-", "U"}, {"...-", "V"}, {".--", "W"}, {"-..-", "X"}, {"-.--", "Y"},
         {"--..", "Z"}
     };
+
+
+    [Inject]
+    public void Construct(int playerId)
+    {
+        bool _isLocalPlayer = playerId == TestGameManager.Instance.Id;
+
+        Debug.Log("_isLocalPlayer:" + _isLocalPlayer);
+        enabled = _isLocalPlayer;
+    }
 
     // Update is called once per frame
     void Update()

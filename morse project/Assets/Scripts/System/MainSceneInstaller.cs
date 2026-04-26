@@ -8,11 +8,14 @@ public class MainSceneInstaller : MonoInstaller
 {
     [SerializeField] private Player player1;
     [SerializeField] private Player player2;
+    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Bullet bullet;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Canvas pausePanel;
     
+
+    [SerializeField] private GameObject testPrefab;
     public override void InstallBindings()
     {
         // ゲーム内オブジェクト
@@ -31,14 +34,18 @@ public class MainSceneInstaller : MonoInstaller
             .FromInstance(text);
         Container.Bind<Canvas>()
             .FromInstance(pausePanel);
-        
+
+        // Prefab
+        Container.BindFactory<int, Player, PlayerFactory>()
+            .FromSubContainerResolve()
+            .ByNewPrefabInstaller<PlayerInstaller>(playerPrefab);
         // MonoBehaviourを使用するManager類
         // TODO: FromComponentInHierarchy検討
         
         
-        Container.Bind<IMoveManager>()
-            .To<MoveManager>()
-            .FromComponentInHierarchy().AsSingle();
+        // Container.Bind<IMoveManager>()
+        //     .To<MoveManager>()
+        //     .FromComponentInHierarchy().AsSingle();
         Container.Bind<ICoroutineRunner>()
             .To<CoroutineRunner>()
             .FromComponentInHierarchy().AsSingle();
@@ -52,5 +59,11 @@ public class MainSceneInstaller : MonoInstaller
         Container.Bind<IMatchManager>().To<MatchManager>().AsSingle();
         // Container.Bind<IKeyAssignManager>().To<KeyAssignManager>().AsSingle();
         Container.Bind<IMenuManager>().To<MenuManager>().AsSingle();
+
+
+
+        Container.BindFactory<int, TestObj, TestObj.Factory>()
+            .FromSubContainerResolve()
+            .ByNewPrefabInstaller<TestObjInstaller>(testPrefab);
     }
 }
