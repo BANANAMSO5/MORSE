@@ -4,22 +4,28 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
+/// <summary>
+/// 遠距離系の技を管理するクラス
+/// </summary>
 public class BulletManager : MonoBehaviour, IBulletManager
 {
-    private int _playerId;
+    // Bulletの共通データ
+    private BulletData _data;
     private BulletFactory _factory;
 
     [Inject]
     public void Construct(int playerId, BulletFactory factory)
     {
-        _playerId = playerId;
+        _data.Id = playerId;
         _factory = factory;
     }
 
+    // TODO:あとでメソッド名かえる
     public void Shot()
     {
-        IBullet bullet = _factory.Create(10);
-        //TODO: 生成した瞬間時点で、、にしたい（Shotいらない）
-        // bullet.Shot();
+        _data.Position = transform.position;
+        Bullet bullet = _factory.Create(_data);
+        // TODO: Shot()なしでいきたい
+        bullet.Shot();
     }
 }

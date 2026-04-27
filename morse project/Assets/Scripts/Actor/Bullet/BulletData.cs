@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
-public class BulletFactory : PlaceholderFactory<int, IBullet>
+public struct BulletData
 {
+    public int Id;
+    public Vector3 Position;
 }

@@ -40,9 +40,9 @@ public class Player : MonoBehaviour, IPlayer
     private void KeyAssign()
     {
         // スキル・行動などを登録
-        _inputManager.RegisterAction("I", _moveManager.MoveRight);
-        _inputManager.RegisterAction("M", _moveManager.MoveLeft);
-        _inputManager.RegisterAction("U", _bulletManager.Shot);
+        // _inputManager.RegisterAction("I", _moveManager.MoveRight);
+        // _inputManager.RegisterAction("M", _moveManager.MoveLeft);
+        // _inputManager.RegisterAction("U", _bulletManager.Shot);
 
         // // 入力された文字を表示
         // _inputManager.RegisterChangeTextAction(_textUIManager.ChangeText);

@@ -22,6 +22,6 @@ public class TestGameManager : MonoBehaviour
         IPlayer player1 =_factory.Create(Id);
         IPlayer player2 = _factory.Create(2);
 
-        player2.SetPosition(new Vector3(3,0,0));
+        player2.SetPosition(new Vector3(6,0,0));
     }
 }

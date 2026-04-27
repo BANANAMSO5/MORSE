@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
@@ -17,19 +18,13 @@ public class Bullet : MonoBehaviour, IBullet
 
     private int _playerId;
     private bool isMove = false;
+    private BulletData _data;
 
-    public Bullet(int playerId)
+    [Inject]
+    public void Construct(BulletData data)
     {
-        Debug.Log("ロケット生成, id:" + playerId);
-        _playerId = playerId;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // isMove = true;
-        // startPos = transform.position + Vector3.right * 0.5f;
-        // endPos = startPos + Vector3.right * distance;
+        Debug.Log("ロケット生成, id:" + data.Id);
+        _data = data;
     }
 
     // Update is called once per frame
@@ -60,13 +55,13 @@ public class Bullet : MonoBehaviour, IBullet
     public void Shot()
     {
         isMove = true;
-        this.team = _playerId;
+        this.team = _data.Id;
         
         // 弾のみため
         //transform.localScale = new Vector3(direction, direction, transform.localScale.z);
         
         // 発射方向
-        startPos = transform.position + Vector3.right * 0.5f;
+        startPos = _data.Position + Vector3.right * 0.5f;
         endPos = startPos + Vector3.right * distance;
         Debug.Log(distance);
         Debug.Log(endPos);
@@ -75,17 +70,18 @@ public class Bullet : MonoBehaviour, IBullet
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Other object tag: " + other.gameObject.tag); 
-        Debug.Log("Other object tag: " + other.CompareTag("Player"));  // タグを確認
+        Debug.Log("Other object tag: " + other.CompareTag("Player"));
         // プレイヤーに衝突した場合
         if (other.CompareTag("Player"))
         {
             Player player = other.GetComponent<Player>();
-            PlayerHealth health = other.GetComponent<PlayerHealth>();  // プレイヤーのPlayerスクリプトを取得
+            PlayerHealth health = other.GetComponent<PlayerHealth>();
             if (player != null)
             {
-                Debug.Log("player.Id: " + player.team + "this.Id: " + this.team);  // タグを確認
-                if (player.team == this.team) { return; }
-                health.TakeDamage(10);  // プレイヤーにダメージを与える
+                Debug.Log("player.Id: " + _data.Id);
+                if (player.PlayerId == _data.Id) { return; }
+                // プレイヤーにダメージを与える
+                health.TakeDamage(10);
                 Destroy(gameObject);
             }
         }

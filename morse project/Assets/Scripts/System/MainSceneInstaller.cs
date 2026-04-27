@@ -40,7 +40,7 @@ public class MainSceneInstaller : MonoInstaller
             .FromSubContainerResolve()
             .ByNewPrefabInstaller<PlayerInstaller>(playerPrefab);
 
-        Container.BindFactory<int, IBullet, BulletFactory>()
+        Container.BindFactory<BulletData, Bullet, BulletFactory>()
             .FromComponentInNewPrefab(bulletPrefab)
             .AsTransient();
         // MonoBehaviourを使用するManager類

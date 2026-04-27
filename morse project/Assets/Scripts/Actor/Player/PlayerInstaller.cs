@@ -26,6 +26,10 @@ public class PlayerInstaller : Installer<int, PlayerInstaller>
             .To<InputManager>()
             .FromComponentOnRoot().AsSingle();
 
+        Container.Bind<IKeyAssignManager>()
+            .To<KeyAssignManager>()
+            .FromComponentOnRoot().AsSingle();
+
         Container.Bind<IMoveManager>()
             .To<MoveManager>()
             .FromComponentOnRoot().AsSingle();
@@ -36,8 +40,5 @@ public class PlayerInstaller : Installer<int, PlayerInstaller>
 
         Container.Bind<PlayerHealth>()
             .FromComponentOnRoot().AsSingle();
-        
-        
-        //Container.BindInterfacesAndSelfTo<PlayerInput>().AsSingle();
     }
 }
