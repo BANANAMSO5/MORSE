@@ -4,40 +4,33 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;
+using static InputSignal;
 
 public class InputManager : MonoBehaviour, IInputManager
 {
     // 判定のしきい値
     public float dotThreshold = 0.2f;   // これ未満 → ・
     public float letterPause = 0.5f;    // この時間入力がなければ文字確定
+    public event Action<InputSignal> OnSignal;
 
     private float pressStartTime;
     private bool isPressing = false;
     private List<string> currentSignal = new List<string>();
     private float lastInputTime;
-    private Dictionary<string, Action> _actions = new Dictionary<string, Action>
-    {
-        { "A", null },{ "B", null },{ "C", null },{ "D", null },{ "E", null },
-        { "F", null },{ "G", null },{ "H", null },{ "I", null },{ "J", null },
-        { "K", null },{ "L", null },{ "M", null },{ "N", null },{ "O", null },
-        { "P", null },{ "Q", null },{ "R", null },{ "S", null },{ "T", null },
-        { "U", null },{ "V", null },{ "W", null },{ "X", null },{ "Y", null },
-        { "Z", null }
-    };
     private Action<string> _changeText;
     private Action _pauseMenu;
 
     // モールス辞書
-    private Dictionary<string, string> morseDict = new Dictionary<string, string>()
+    private Dictionary<string, InputSignal> morseDict = new Dictionary<string, InputSignal>()
     {
-        {".-", "A"}, {"-...", "B"}, {"-.-.", "C"}, {"-..", "D"}, {".", "E"},
-        {"..-.", "F"}, {"--.", "G"}, {"....", "H"}, {"..", "I"}, {".---", "J"},
-        {"-.-", "K"}, {".-..", "L"}, {"--", "M"}, {"-.", "N"}, {"---", "O"},
-        {".--.", "P"}, {"--.-", "Q"}, {".-.", "R"}, {"...", "S"}, {"-", "T"},
-        {"..-", "U"}, {"...-", "V"}, {".--", "W"}, {"-..-", "X"}, {"-.--", "Y"},
-        {"--..", "Z"}
+        {".-", A}, {"-...", B}, {"-.-.", C}, {"-..", D}, {".", E},
+        {"..-.", F}, {"--.", G}, {"....", H}, {"..", I}, {".---", J},
+        {"-.-", K}, {".-..", L}, {"--", M}, {"-.", N}, {"---", O},
+        {".--.", P}, {"--.-", Q}, {".-.", R}, {"...", S}, {"-", T},
+        {"..-", U}, {"...-", V}, {".--", W}, {"-..-", X}, {"-.--", Y},
+        {"--..", Z}
     };
-
+    
 
     [Inject]
     public void Construct(int playerId)
@@ -83,7 +76,13 @@ public class InputManager : MonoBehaviour, IInputManager
         {
             if (Time.time - lastInputTime > letterPause)
             {
-                DecodeSignal();
+                // 文字変換できる信号か
+                string signal = string.Join("", currentSignal);
+                if (morseDict.TryGetValue(signal, out InputSignal result))
+                {
+                    // 文字ならInvoke
+                    OnSignal?.Invoke(result);
+                }
                 currentSignal.Clear();
             }
         }
@@ -93,44 +92,5 @@ public class InputManager : MonoBehaviour, IInputManager
         {
             _pauseMenu?.Invoke();
         }
-    }
-
-    void DecodeSignal()
-    {
-        string signal = string.Join("", currentSignal);
-
-        if (morseDict.TryGetValue(signal, out string result))
-        {
-            // 判定処理
-            JudgeSignal(result);
-            Debug.Log("入力: " + signal + " → " + result);
-        }
-        else
-        {
-            Debug.Log("入力: " + signal + " → 不明");
-        }
-    }
-
-    void JudgeSignal(string signal)
-    {
-        // 入力したアクションを実行
-        _actions[signal]?.Invoke();
-        _changeText?.Invoke(signal);
-    }
-
-    public void RegisterAction(string signal, Action action)
-    {
-        Debug.Log(signal + ":" + action);
-        _actions[signal] += action;
-    }
-
-    public void RegisterChangeTextAction(Action<string> action)
-    {
-        _changeText += action;
-    }
-
-    public void RegisterPauseMenu(Action action)
-    {
-        _pauseMenu += action;
     }
 }
