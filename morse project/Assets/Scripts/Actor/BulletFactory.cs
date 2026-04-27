@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public interface IPlayer
+public class BulletFactory : PlaceholderFactory<int, IBullet>
 {
-    void SetPosition(Vector3 position);
 }

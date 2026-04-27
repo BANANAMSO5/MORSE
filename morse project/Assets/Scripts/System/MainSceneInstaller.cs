@@ -9,7 +9,7 @@ public class MainSceneInstaller : MonoInstaller
     [SerializeField] private Player player1;
     [SerializeField] private Player player2;
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Bullet bullet;
+    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Canvas pausePanel;
@@ -25,9 +25,9 @@ public class MainSceneInstaller : MonoInstaller
         Container.Bind<Player>()
             .WithId("player2")
             .FromInstance(player2);
-        Container.BindFactory<Bullet, Bullet.Factory>()
-            .FromComponentInNewPrefab(bullet)
-            .AsTransient();
+        // Container.BindFactory<Bullet, BulletFactory>()
+        //     .FromComponentInNewPrefab(bullet)
+        //     .AsTransient();
         Container.Bind<CanvasGroup>()
             .FromInstance(canvasGroup);
         Container.Bind<TextMeshProUGUI>()
@@ -39,6 +39,10 @@ public class MainSceneInstaller : MonoInstaller
         Container.BindFactory<int, IPlayer, PlayerFactory>()
             .FromSubContainerResolve()
             .ByNewPrefabInstaller<PlayerInstaller>(playerPrefab);
+
+        Container.BindFactory<int, IBullet, BulletFactory>()
+            .FromComponentInNewPrefab(bulletPrefab)
+            .AsTransient();
         // MonoBehaviourを使用するManager類
         // TODO: FromComponentInHierarchy検討
         
@@ -52,7 +56,7 @@ public class MainSceneInstaller : MonoInstaller
         
         // 純C#Managerなど
         // Container.BindInterfacesTo<GameInitializer>().AsSingle();
-        Container.Bind<IBulletManager>().To<BulletManager>().AsSingle();
+        // Container.Bind<IBulletManager>().To<BulletManager>().AsSingle();
         Container.Bind<IPositionManager>().To<PositionManager>().AsSingle();
         Container.Bind<ITextUIManager>().To<TextUIManager>().AsSingle();
         Container.Bind<DamageEffectManager>().AsSingle();

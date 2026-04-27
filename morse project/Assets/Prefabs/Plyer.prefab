@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 8307418918326347714}
   - component: {fileID: 4567462637391760905}
   - component: {fileID: 234769799294837936}
+  - component: {fileID: 8257783962999113685}
   m_Layer: 0
   m_Name: Plyer
   m_TagString: Player
@@ -261,6 +262,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dotThreshold: 0.2
   letterPause: 0.5
+--- !u!114 &8257783962999113685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6877953979999562662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aaa9c1f3140c4144a39293c95104214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7997157993979124192
 GameObject:
   m_ObjectHideFlags: 0

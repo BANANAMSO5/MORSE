@@ -47,4 +47,9 @@ public class Player : MonoBehaviour, IPlayer
         // // 入力された文字を表示
         // _inputManager.RegisterChangeTextAction(_textUIManager.ChangeText);
     }
+
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
 }

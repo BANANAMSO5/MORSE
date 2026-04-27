@@ -155,7 +155,7 @@ MonoBehaviour:
   player1: {fileID: 0}
   player2: {fileID: 0}
   playerPrefab: {fileID: 6877953979999562662, guid: 654ea9b546353ae4896fd3aa44d92547, type: 3}
-  bullet: {fileID: 3924880212834917545, guid: 974c97e4f6bdbbd4c969d8f65a5cc05c, type: 3}
+  bullet: {fileID: 8144684586387193010, guid: 974c97e4f6bdbbd4c969d8f65a5cc05c, type: 3}
   canvasGroup: {fileID: 2068728153}
   text: {fileID: 2068728154}
   pausePanel: {fileID: 1652859274}
@@ -351,7 +351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf7377620072f6747a4fffd5002798ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

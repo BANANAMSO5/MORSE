@@ -30,6 +30,10 @@ public class PlayerInstaller : Installer<int, PlayerInstaller>
             .To<MoveManager>()
             .FromComponentOnRoot().AsSingle();
 
+        Container.Bind<IBulletManager>()
+            .To<BulletManager>()
+            .FromComponentOnRoot().AsSingle();
+
         Container.Bind<PlayerHealth>()
             .FromComponentOnRoot().AsSingle();
         

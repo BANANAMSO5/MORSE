@@ -4,22 +4,22 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
-public class BulletManager : IBulletManager
+public class BulletManager : MonoBehaviour, IBulletManager
 {
-    private Bullet.Factory _factory;
-    private Player _player;
+    private int _playerId;
+    private BulletFactory _factory;
 
-    // [Inject]
-    public void Construct(Bullet.Factory factory, [Inject(Id = "player1")]Player player)
+    [Inject]
+    public void Construct(int playerId, BulletFactory factory)
     {
+        _playerId = playerId;
         _factory = factory;
-        _player = player;
     }
 
     public void Shot()
     {
-        Bullet bullet = _factory.Create();
-        //bullet.transform.position = _player.gameObject.transform.position;
-        bullet.Shot(_player.team, _player.direction);
+        IBullet bullet = _factory.Create(10);
+        //TODO: 生成した瞬間時点で、、にしたい（Shotいらない）
+        // bullet.Shot();
     }
 }

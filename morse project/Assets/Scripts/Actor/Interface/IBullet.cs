@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPlayer
+public interface IBullet
 {
-    void SetPosition(Vector3 position);
+    void Shot();
 }

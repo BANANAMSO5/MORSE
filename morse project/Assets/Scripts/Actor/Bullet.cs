@@ -4,24 +4,24 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IBullet
 {
     public int team;
     public float timer = 0f;
     public float moveTime = 1f;   // 1秒
     public float distance = 4.0f;
-    public class Factory : PlaceholderFactory<Bullet> { }
 
     Renderer rend;
     Vector3 startPos;
     Vector3 endPos;
 
+    private int _playerId;
     private bool isMove = false;
 
-    [Inject]
-    public void Construct()
+    public Bullet(int playerId)
     {
-        Debug.Log("ロケット生成");
+        Debug.Log("ロケット生成, id:" + playerId);
+        _playerId = playerId;
     }
 
     // Start is called before the first frame update
@@ -57,10 +57,10 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void Shot(int team, int direction)
+    public void Shot()
     {
         isMove = true;
-        this.team = team;
+        this.team = _playerId;
         
         // 弾のみため
         //transform.localScale = new Vector3(direction, direction, transform.localScale.z);
