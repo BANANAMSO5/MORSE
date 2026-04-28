@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-public class TextUIManager : MonoBehaviour, ITextUIManager
+public class PlayerUIManager : MonoBehaviour, IPlayerUIManager
 {
     public float displayTime = 1f;
     public float fadeDuration = 1f;
@@ -22,9 +22,6 @@ public class TextUIManager : MonoBehaviour, ITextUIManager
         ICoroutineRunner coroutineRunner,
         SignalBus signalBus)
     {
-        Debug.Log(canvasGroup == null ? "NULL" : "OK");
-        Debug.Log(text == null ? "NULL" : "OK");
-        Debug.Log(signalBus == null ? "NULL" : "OK");
         _canvasGroup = canvasGroup;
         _text = text;
         _coroutineRunner = coroutineRunner;
@@ -35,7 +32,7 @@ public class TextUIManager : MonoBehaviour, ITextUIManager
     public void OnGenerate(InputManagerSignal signal)
     {
         Debug.Log("OnGenerated");
-        signal.Instance.OnSignal += Handle;
+        signal.Instance.OnFixChar += Handle;
 
         // スキル・行動などを登録
         // 順番や総数を変えないこと
@@ -70,7 +67,7 @@ public class TextUIManager : MonoBehaviour, ITextUIManager
         };
     }
 
-    public void Handle(InputSignal text)
+    public void Handle(InputChar text)
     {
         // UIに表示
         _text.text = _actionTexts[(int)text];;

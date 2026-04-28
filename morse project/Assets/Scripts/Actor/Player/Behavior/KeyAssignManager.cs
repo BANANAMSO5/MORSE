@@ -12,7 +12,6 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
     private IInputManager _inputManager;
     private IMoveManager _moveManager;
     private IBulletManager _bulletManager;
-    private ITextUIManager _textUIManager;
     private IMenuManager _menuManager;
     private Action[] _actions;
 
@@ -36,7 +35,7 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
 
     public void KeyAssign()
     {
-        _inputManager.OnSignal += Handle;
+        _inputManager.OnFixChar += Handle;
 
         // スキル・行動などを登録
         // 順番や総数を変えないこと
@@ -70,15 +69,12 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
             null,                       // Z
         };
 
-        // // 入力された文字を表示
-        // _inputManager.RegisterChangeTextAction(_textUIManager.ChangeText);
-
         // // メニュー画面
         // _inputManager.RegisterPauseMenu(_menuManager.SwitchMenuMode);
     }
 
 
-    public void Handle(InputSignal type)
+    public void Handle(InputChar type)
     {
         _actions[(int)type]?.Invoke();
     }

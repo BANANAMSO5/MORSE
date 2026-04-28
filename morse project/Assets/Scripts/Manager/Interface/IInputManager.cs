@@ -5,5 +5,5 @@ using UnityEngine;
 
 public interface IInputManager
 {
-    event Action<InputSignal> OnSignal;
+    event Action<InputChar> OnFixChar;
 }

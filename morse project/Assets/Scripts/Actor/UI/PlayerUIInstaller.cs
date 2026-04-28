@@ -9,9 +9,8 @@ public class PlayerUIInstaller : MonoInstaller
     public override void InstallBindings()
     {
         // Canvasにアタッチする想定
-        Container.Bind<TextUIManager>()
-            .FromComponentOnRoot()
-            .AsSingle();
+        Container.Bind<IPlayerUIManager>().To<PlayerUIManager>()
+            .FromComponentOnRoot().AsSingle();
 
         // Canvas配下から取得
         Container.Bind<TextMeshProUGUI>()

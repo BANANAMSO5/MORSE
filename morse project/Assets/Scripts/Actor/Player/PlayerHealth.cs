@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,6 +11,14 @@ public class PlayerHealth : MonoBehaviour
     public Action OnDamage;
     public Action OnDeath;
     public TextMeshPro hpText;
+    private int _playerId;
+
+    [Inject]
+    public void Construct(int playerId)
+    {
+        _playerId = playerId;
+        UpdateHPText();
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,7 +27,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("A" + damage);
         Hp -= damage;
         OnDamage?.Invoke();
         UpdateHPText();

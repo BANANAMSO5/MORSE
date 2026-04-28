@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;
+using static InputChar;
 using static InputSignal;
 
 /// <summary>
@@ -14,18 +15,18 @@ public class InputManager : MonoBehaviour, IInputManager
     // 判定のしきい値
     public float dotThreshold = 0.2f;   // これ未満 → ・
     public float letterPause = 0.5f;    // この時間入力がなければ文字確定
-    public event Action<InputSignal> OnSignal;
+    public event Action<InputChar> OnFixChar;
+    public event Action<InputSignal> OnFixSignal;
     [Inject] SignalBus _signalBus;
 
     private float pressStartTime;
     private bool isPressing = false;
     private List<string> currentSignal = new List<string>();
     private float lastInputTime;
-    private Action<string> _changeText;
     private Action _pauseMenu;
 
     // モールス辞書
-    private Dictionary<string, InputSignal> morseDict = new Dictionary<string, InputSignal>()
+    private Dictionary<string, InputChar> morseDict = new Dictionary<string, InputChar>()
     {
         {".-", A}, {"-...", B}, {"-.-.", C}, {"-..", D}, {".", E},
         {"..-.", F}, {"--.", G}, {"....", H}, {"..", I}, {".---", J},
@@ -69,11 +70,13 @@ public class InputManager : MonoBehaviour, IInputManager
             if (pressDuration < dotThreshold)
             {
                 currentSignal.Add(".");
+                // OnFixSignal?.Invoke(Dot);
                 Debug.Log("・");
             }
             else
             {
                 currentSignal.Add("-");
+                // OnFixSignal?.Invoke(Dash);
                 Debug.Log("－");
             }
 
@@ -85,12 +88,14 @@ public class InputManager : MonoBehaviour, IInputManager
         {
             if (Time.time - lastInputTime > letterPause)
             {
+                // OnFixSignal?.Invoke(Finish);
+
                 // 文字変換できる信号か
                 string signal = string.Join("", currentSignal);
-                if (morseDict.TryGetValue(signal, out InputSignal result))
+                if (morseDict.TryGetValue(signal, out InputChar result))
                 {
                     // 文字ならInvoke
-                    OnSignal?.Invoke(result);
+                    OnFixChar?.Invoke(result);
                 }
                 currentSignal.Clear();
             }
