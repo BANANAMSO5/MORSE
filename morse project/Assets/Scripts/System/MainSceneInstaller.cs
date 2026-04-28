@@ -28,10 +28,10 @@ public class MainSceneInstaller : MonoInstaller
         // Container.BindFactory<Bullet, BulletFactory>()
         //     .FromComponentInNewPrefab(bullet)
         //     .AsTransient();
-        Container.Bind<CanvasGroup>()
-            .FromInstance(canvasGroup);
-        Container.Bind<TextMeshProUGUI>()
-            .FromInstance(text);
+        // Container.Bind<CanvasGroup>()
+        //     .FromInstance(canvasGroup);
+        // Container.Bind<TextMeshProUGUI>()
+        //     .FromInstance(text);
         Container.Bind<Canvas>()
             .FromInstance(pausePanel);
 
@@ -55,16 +55,17 @@ public class MainSceneInstaller : MonoInstaller
             .FromComponentInHierarchy().AsSingle();
         
         // 純C#Managerなど
-        // Container.BindInterfacesTo<GameInitializer>().AsSingle();
+        Container.BindInterfacesTo<GameInitializer>().AsSingle();
         // Container.Bind<IBulletManager>().To<BulletManager>().AsSingle();
         Container.Bind<IPositionManager>().To<PositionManager>().AsSingle();
-        Container.Bind<ITextUIManager>().To<TextUIManager>().AsSingle();
+        // Container.Bind<ITextUIManager>().To<TextUIManager>().AsSingle();
         Container.Bind<DamageEffectManager>().AsSingle();
         Container.Bind<IMatchManager>().To<MatchManager>().AsSingle();
         // Container.Bind<IKeyAssignManager>().To<KeyAssignManager>().AsSingle();
         Container.Bind<IMenuManager>().To<MenuManager>().AsSingle();
 
-
+        SignalBusInstaller.Install(Container);
+        Container.DeclareSignal<InputManagerSignal>();
 
         Container.BindFactory<int, TestObj, TestObj.Factory>()
             .FromSubContainerResolve()

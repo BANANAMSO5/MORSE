@@ -20,15 +20,16 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
     public void Construct(
         IInputManager inputManager,
         IMoveManager moveManager,
-        IBulletManager bulletManager,
-        ITextUIManager textUIManager,
-        IMenuManager menuManager)
+        IBulletManager bulletManager
+        // ITextUIManager textUIManager
+        // IMenuManager menuManager
+    )
     {
         _inputManager = inputManager;
         _moveManager = moveManager;
         _bulletManager = bulletManager;
-        _textUIManager = textUIManager;
-        _menuManager = menuManager;
+        // _textUIManager = textUIManager;
+        // _menuManager = menuManager;
 
         KeyAssign();
     }

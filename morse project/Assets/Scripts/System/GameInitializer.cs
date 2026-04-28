@@ -5,17 +5,13 @@ using Zenject;
 
 public class GameInitializer : IInitializable
 {
-    IKeyAssignManager _keyAssignManager;
 
     [Inject]
-    public GameInitializer(IKeyAssignManager keyAssignManager)
+    public GameInitializer()
     {
-        Debug.Log("GameInitializer init");
-        _keyAssignManager = keyAssignManager;
     }
 
     public void Initialize()
     {
-        _keyAssignManager.KeyAssign();
     }
 }

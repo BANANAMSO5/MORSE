@@ -6,12 +6,16 @@ using UnityEngine;
 using Zenject;
 using static InputSignal;
 
+/// <summary>
+/// 入力した文字をイベント発火する
+/// </summary>
 public class InputManager : MonoBehaviour, IInputManager
 {
     // 判定のしきい値
     public float dotThreshold = 0.2f;   // これ未満 → ・
     public float letterPause = 0.5f;    // この時間入力がなければ文字確定
     public event Action<InputSignal> OnSignal;
+    [Inject] SignalBus _signalBus;
 
     private float pressStartTime;
     private bool isPressing = false;
@@ -39,6 +43,11 @@ public class InputManager : MonoBehaviour, IInputManager
 
         Debug.Log("_isLocalPlayer:" + _isLocalPlayer);
         enabled = _isLocalPlayer;
+    }
+
+    void Start()
+    {
+        _signalBus.Fire(new InputManagerSignal{ Instance = this });
     }
 
     // Update is called once per frame
@@ -93,4 +102,9 @@ public class InputManager : MonoBehaviour, IInputManager
             _pauseMenu?.Invoke();
         }
     }
+}
+
+public class InputManagerSignal
+{
+    public InputManager Instance;
 }

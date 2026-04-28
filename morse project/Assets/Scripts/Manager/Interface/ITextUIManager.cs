@@ -4,5 +4,4 @@ using UnityEngine;
 
 public interface ITextUIManager
 {
-    void ChangeText(string text);
 }

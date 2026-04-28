@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-public class TextUIManager : ITextUIManager
+public class TextUIManager : MonoBehaviour, ITextUIManager
 {
     public float displayTime = 1f;
     public float fadeDuration = 1f;
@@ -12,42 +12,75 @@ public class TextUIManager : ITextUIManager
     private TextMeshProUGUI _text;
     private ICoroutineRunner _coroutineRunner;
     private Coroutine fadeCoroutine;
-
-    Dictionary<string, string> skillDict = new Dictionary<string, string>()
-    {
-        { "A", "A" }, { "B", "B" }, { "C", "C" }, { "D", "D" }, { "E", "E" },
-        { "F", "F" }, { "G", "G" }, { "H", "H" }, { "I", "Ike" }, { "J", "J" },
-        { "K", "K" }, { "L", "L" }, { "M", "Modore" }, { "N", "N" }, { "O", "O" },
-        { "P", "P" }, { "Q", "Q" }, { "R", "R" }, { "S", "S" }, { "T", "T" },
-        { "U", "Ute" }, { "V", "V" }, { "W", "W" }, { "X", "X" }, { "Y", "Y" },
-        { "Z", "Z" }
-    };
+    private SignalBus _signalBus;
+    private string[] _actionTexts;
 
     [Inject]
     public void Construct(
         CanvasGroup canvasGroup, 
         TextMeshProUGUI text,
-        ICoroutineRunner coroutineRunner)
+        ICoroutineRunner coroutineRunner,
+        SignalBus signalBus)
     {
+        Debug.Log(canvasGroup == null ? "NULL" : "OK");
+        Debug.Log(text == null ? "NULL" : "OK");
+        Debug.Log(signalBus == null ? "NULL" : "OK");
         _canvasGroup = canvasGroup;
         _text = text;
         _coroutineRunner = coroutineRunner;
+        _signalBus = signalBus;
+        _signalBus.Subscribe<InputManagerSignal>(OnGenerate);
     }
 
-    public void ChangeText(string text)
+    public void OnGenerate(InputManagerSignal signal)
+    {
+        Debug.Log("OnGenerated");
+        signal.Instance.OnSignal += Handle;
+
+        // スキル・行動などを登録
+        // 順番や総数を変えないこと
+        _actionTexts = new string[]
+        {
+            "A",        // A
+            "B",        // B
+            "C",        // C
+            "D",        // D
+            "E",        // E
+            "F",        // F
+            "G",        // G
+            "H",        // H
+            "Ike!",        // I
+            "J",        // J
+            "K",        // K
+            "L",        // L
+            "Modore!",        // M
+            "N",        // N
+            "O",        // O
+            "P",        // P
+            "Q",        // Q
+            "R",        // R
+            "S",        // S
+            "T",        // T
+            "Ute!",        // U
+            "V",        // V
+            "W",        // W
+            "X",        // X
+            "Y",        // Y
+            "Z",        // Z
+        };
+    }
+
+    public void Handle(InputSignal text)
     {
         // UIに表示
-        if (skillDict.TryGetValue(text, out string skillName))
-        {
-            _text.text = skillName;
+        _text.text = _actionTexts[(int)text];;
 
-            // 既存のコルーチンを止める
-            if (fadeCoroutine != null)
-            {
-                _coroutineRunner.StopProcess(fadeCoroutine);
-            }
-            fadeCoroutine = _coroutineRunner.StartProcess(FadeOutRoutine());
+        // 既存のコルーチンを止める
+        if (fadeCoroutine != null)
+        {
+            _coroutineRunner.StopProcess(fadeCoroutine);
         }
+        fadeCoroutine = _coroutineRunner.StartProcess(FadeOutRoutine());
     }
 
     IEnumerator FadeOutRoutine()
