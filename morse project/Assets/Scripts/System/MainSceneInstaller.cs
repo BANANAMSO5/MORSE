@@ -10,8 +10,13 @@ public class MainSceneInstaller : MonoInstaller
     [SerializeField] private Player player2;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private GameObject dotPanelPrefab;
+    [SerializeField] private GameObject dashPanelPrefab;
+    [SerializeField] private Transform signalPanel1Transform;
+    [SerializeField] private Transform signalPanel2Transform;
+    [SerializeField] private Transform signalPanel3Transform;
+    [SerializeField] private Transform signalPanel4Transform;
+
     [SerializeField] private Canvas pausePanel;
     
 
@@ -35,6 +40,14 @@ public class MainSceneInstaller : MonoInstaller
         Container.Bind<Canvas>()
             .FromInstance(pausePanel);
 
+        Container.Bind<SignalPanelArea>()
+            .FromInstance(new SignalPanelArea(
+                signalPanel1Transform,
+                signalPanel2Transform,
+                signalPanel3Transform,
+                signalPanel4Transform))
+            .AsSingle();
+
         // Prefab
         Container.BindFactory<int, IPlayer, PlayerFactory>()
             .FromSubContainerResolve()
@@ -43,6 +56,18 @@ public class MainSceneInstaller : MonoInstaller
         Container.BindFactory<BulletData, Bullet, BulletFactory>()
             .FromComponentInNewPrefab(bulletPrefab)
             .AsTransient();
+
+        Container.BindFactory<SignalPanel, DotSignalPanelFactory>()
+            .FromComponentInNewPrefab(dotPanelPrefab)
+            .AsTransient();
+
+        Container.BindFactory<SignalPanel, DashSignalPanelFactory>()
+            .FromComponentInNewPrefab(dashPanelPrefab)
+            .AsTransient();
+
+        // Container.BindFactory<SignalPanel, SignalPanelFactory>()
+        //     .FromComponentInNewPrefab(dashPanelPrefab)
+        //     .AsTransient();
         // MonoBehaviourを使用するManager類
         // TODO: FromComponentInHierarchy検討
         

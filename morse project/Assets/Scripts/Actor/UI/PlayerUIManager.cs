@@ -31,7 +31,6 @@ public class PlayerUIManager : MonoBehaviour, IPlayerUIManager
 
     public void OnGenerate(InputManagerSignal signal)
     {
-        Debug.Log("OnGenerated");
         signal.Instance.OnFixChar += Handle;
 
         // スキル・行動などを登録

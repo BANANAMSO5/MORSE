@@ -16,7 +16,9 @@ public class InputManager : MonoBehaviour, IInputManager
     public float dotThreshold = 0.2f;   // これ未満 → ・
     public float letterPause = 0.5f;    // この時間入力がなければ文字確定
     public event Action<InputChar> OnFixChar;
-    public event Action<InputSignal> OnFixSignal;
+    public event Action OnDotSignal;
+    public event Action OnDashSignal;
+    public event Action OnEndSignal;
     [Inject] SignalBus _signalBus;
 
     private float pressStartTime;
@@ -70,13 +72,13 @@ public class InputManager : MonoBehaviour, IInputManager
             if (pressDuration < dotThreshold)
             {
                 currentSignal.Add(".");
-                // OnFixSignal?.Invoke(Dot);
+                OnDotSignal?.Invoke();
                 Debug.Log("・");
             }
             else
             {
                 currentSignal.Add("-");
-                // OnFixSignal?.Invoke(Dash);
+                OnDashSignal?.Invoke();
                 Debug.Log("－");
             }
 
@@ -88,7 +90,7 @@ public class InputManager : MonoBehaviour, IInputManager
         {
             if (Time.time - lastInputTime > letterPause)
             {
-                // OnFixSignal?.Invoke(Finish);
+                OnEndSignal.Invoke();
 
                 // 文字変換できる信号か
                 string signal = string.Join("", currentSignal);
