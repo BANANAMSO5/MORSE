@@ -8,23 +8,26 @@ using Zenject;
 /// </summary>
 public class SignalUIManager : MonoBehaviour, ISignalUIManager
 {
+    private IInputManager _inputManager;
     private DotSignalPanelFactory _dotFactory;
     private DashSignalPanelFactory _dashFactory;
-    private SignalBus _signalBus;
     private List<SignalPanel> _panels = new();
     private List<Transform> _areas = new();
 
     [Inject]
     public void Construct(
-        SignalBus signalBus, 
+        IInputManager inputManager,
         DotSignalPanelFactory dotFactory, 
         DashSignalPanelFactory dashFactory, 
         SignalPanelArea signalPanelArea
     )
     {
+        Debug.Log(inputManager);
+        _inputManager = inputManager;
+        _inputManager.OnDotSignal += () => { if (_panels.Count <_areas.Count) DotHandle(); };
+        _inputManager.OnDashSignal += () => { if (_panels.Count <_areas.Count) DashHandle(); };
+        _inputManager.OnEndSignal += EndSignalHandle;
         Debug.Log("SignalUIManager");
-        _signalBus = signalBus;
-        _signalBus.Subscribe<InputManagerSignal>(OnGenerate);
         _dotFactory = dotFactory;
         _dashFactory = dashFactory;
         _areas = new(){ signalPanelArea.Area1, signalPanelArea.Area2, signalPanelArea.Area3, signalPanelArea.Area4 };
@@ -33,9 +36,7 @@ public class SignalUIManager : MonoBehaviour, ISignalUIManager
     // InputManager(Player)が生成されたときに入力時の処理を登録
     public void OnGenerate(InputManagerSignal signal)
     {
-        signal.Instance.OnDotSignal += () => { if (_panels.Count <_areas.Count) DotHandle(); };
-        signal.Instance.OnDashSignal += () => { if (_panels.Count <_areas.Count) DashHandle(); };
-        signal.Instance.OnEndSignal += EndSignalHandle;
+        
     }
 
     // 「・」のパネルを表示

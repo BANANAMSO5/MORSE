@@ -22,9 +22,9 @@ public class PlayerInstaller : Installer<int, PlayerInstaller>
             .To<Player>()
             .FromComponentOnRoot().AsSingle();
 
-        Container.Bind<IInputManager>()
-            .To<InputManager>()
-            .FromComponentOnRoot().AsSingle();
+        // Container.Bind<IInputManager>()
+        //     .To<InputManager>()
+        //     .FromComponentOnRoot().AsSingle();
 
         Container.Bind<IKeyAssignManager>()
             .To<KeyAssignManager>()

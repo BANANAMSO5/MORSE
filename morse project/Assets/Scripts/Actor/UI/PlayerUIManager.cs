@@ -12,26 +12,21 @@ public class PlayerUIManager : MonoBehaviour, IPlayerUIManager
     private TextMeshProUGUI _text;
     private ICoroutineRunner _coroutineRunner;
     private Coroutine fadeCoroutine;
-    private SignalBus _signalBus;
     private string[] _actionTexts;
+    private IInputManager _inputManager;
 
     [Inject]
     public void Construct(
         CanvasGroup canvasGroup, 
         TextMeshProUGUI text,
         ICoroutineRunner coroutineRunner,
-        SignalBus signalBus)
+        IInputManager inputManager)
     {
         _canvasGroup = canvasGroup;
         _text = text;
         _coroutineRunner = coroutineRunner;
-        _signalBus = signalBus;
-        _signalBus.Subscribe<InputManagerSignal>(OnGenerate);
-    }
-
-    public void OnGenerate(InputManagerSignal signal)
-    {
-        signal.Instance.OnFixChar += Handle;
+        _inputManager = inputManager;
+        _inputManager.OnFixChar += Handle;
 
         // スキル・行動などを登録
         // 順番や総数を変えないこと

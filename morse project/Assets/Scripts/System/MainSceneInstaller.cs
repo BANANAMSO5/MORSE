@@ -12,10 +12,9 @@ public class MainSceneInstaller : MonoInstaller
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject dotPanelPrefab;
     [SerializeField] private GameObject dashPanelPrefab;
-    [SerializeField] private Transform signalPanel1Transform;
-    [SerializeField] private Transform signalPanel2Transform;
-    [SerializeField] private Transform signalPanel3Transform;
-    [SerializeField] private Transform signalPanel4Transform;
+
+    [SerializeField] private InputManager player1input;
+    [SerializeField] private InputManager player2input;
 
     [SerializeField] private Canvas pausePanel;
     
@@ -40,13 +39,7 @@ public class MainSceneInstaller : MonoInstaller
         Container.Bind<Canvas>()
             .FromInstance(pausePanel);
 
-        Container.Bind<SignalPanelArea>()
-            .FromInstance(new SignalPanelArea(
-                signalPanel1Transform,
-                signalPanel2Transform,
-                signalPanel3Transform,
-                signalPanel4Transform))
-            .AsSingle();
+        
 
         // Prefab
         Container.BindFactory<int, IPlayer, PlayerFactory>()
@@ -64,6 +57,14 @@ public class MainSceneInstaller : MonoInstaller
         Container.BindFactory<SignalPanel, DashSignalPanelFactory>()
             .FromComponentInNewPrefab(dashPanelPrefab)
             .AsTransient();
+
+        Container.Bind<IInputManager>()
+            .WithId(1)
+            .FromInstance(player1input);
+
+        Container.Bind<IInputManager>()
+            .WithId(2)
+            .FromInstance(player2input);
 
         // Container.BindFactory<SignalPanel, SignalPanelFactory>()
         //     .FromComponentInNewPrefab(dashPanelPrefab)

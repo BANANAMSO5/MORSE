@@ -19,6 +19,7 @@ public class TestGameManager : MonoBehaviour
     {
         Id = 1;
         // // とりあえずPlayer1
+        // InputManagerのIdなどの固定値に紐づけるため、基本的に1,2としたい
         IPlayer player1 =_factory.Create(Id);
         IPlayer player2 = _factory.Create(2);
 

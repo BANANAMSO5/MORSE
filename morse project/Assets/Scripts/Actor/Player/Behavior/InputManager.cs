@@ -40,17 +40,21 @@ public class InputManager : MonoBehaviour, IInputManager
     
 
     [Inject]
-    public void Construct(int playerId)
+    public void Construct()
     {
-        bool _isLocalPlayer = playerId == TestGameManager.Id;
-
-        Debug.Log("_isLocalPlayer:" + _isLocalPlayer);
-        enabled = _isLocalPlayer;
+        // bool _isLocalPlayer = playerId == TestGameManager.Id;
+        // enabled = _isLocalPlayer;
     }
 
     void Start()
     {
-        _signalBus.Fire(new InputManagerSignal{ Instance = this });
+        // _signalBus.Fire(new InputManagerSignal{ Instance = this });
+    }
+
+    public void Setenable(int id)
+    {
+        bool _isLocalPlayer = id == TestGameManager.Id;
+        enabled = _isLocalPlayer;
     }
 
     // Update is called once per frame

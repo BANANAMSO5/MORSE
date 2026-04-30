@@ -17,14 +17,17 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
 
     [Inject]
     public void Construct(
-        IInputManager inputManager,
+        int playerId,
+        // IInputManager inputManager,
         IMoveManager moveManager,
-        IBulletManager bulletManager
+        IBulletManager bulletManager,
+        DiContainer diContainer
         // ITextUIManager textUIManager
         // IMenuManager menuManager
     )
     {
-        _inputManager = inputManager;
+        _inputManager = diContainer.ResolveId<IInputManager>(playerId);
+        _inputManager.Setenable(playerId);
         _moveManager = moveManager;
         _bulletManager = bulletManager;
         // _textUIManager = textUIManager;
