@@ -19,7 +19,6 @@ public class InputManager : MonoBehaviour, IInputManager
     public event Action OnDotSignal;
     public event Action OnDashSignal;
     public event Action OnEndSignal;
-    [Inject] SignalBus _signalBus;
 
     private float pressStartTime;
     private bool isPressing = false;
@@ -42,9 +41,8 @@ public class InputManager : MonoBehaviour, IInputManager
     [Inject]
     public void Construct()
     {
+        // デフォルトでDisable。Playerが登録されたらEnableになる
         enabled = false;
-        // bool _isLocalPlayer = playerId == TestGameManager.Id;
-        // enabled = _isLocalPlayer;
     }
 
     void Start()

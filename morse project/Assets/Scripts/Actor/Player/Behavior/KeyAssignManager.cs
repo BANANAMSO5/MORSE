@@ -16,28 +16,17 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
     private Action[] _actions;
 
     [Inject]
-    public void Construct(
-        int playerId,
-        // IInputManager inputManager,
-        IMoveManager moveManager,
-        IBulletManager bulletManager,
-        DiContainer diContainer
-        // ITextUIManager textUIManager
-        // IMenuManager menuManager
-    )
+    public void Construct(IInputManager inputManager)
     {
-        _inputManager = diContainer.ResolveId<IInputManager>(playerId);
-        _inputManager.Setenable(playerId);
-        _moveManager = moveManager;
-        _bulletManager = bulletManager;
+        _inputManager = inputManager;
         // _textUIManager = textUIManager;
         // _menuManager = menuManager;
 
-        KeyAssign();
     }
 
-    public void KeyAssign()
+    public void KeyAssign(IPlayer player)
     {
+        _inputManager.Setenable(player.PlayerId);
         _inputManager.OnFixChar += Handle;
 
         // スキル・行動などを登録
@@ -52,11 +41,11 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
             null,                       // F
             null,                       // G
             null,                       // H
-            _moveManager.MoveRight,     // I
+            player.Behavior.MoveManager.MoveRight,     // I
             null,                       // J
             null,                       // K
             null,                       // L
-            _moveManager.MoveLeft,      // M
+            player.Behavior.MoveManager.MoveLeft,      // M
             null,                       // N
             null,                       // O
             null,                       // P
@@ -64,7 +53,7 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
             null,                       // R
             null,                       // S
             null,                       // T
-            _bulletManager.Shot,        // U
+            player.Behavior.BulletManager.Shot,        // U
             null,                       // V
             null,                       // W
             null,                       // X

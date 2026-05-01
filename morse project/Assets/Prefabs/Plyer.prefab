@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 8307418918326347714}
   - component: {fileID: 4567462637391760905}
   - component: {fileID: 8257783962999113685}
-  - component: {fileID: 3849415732984835792}
+  - component: {fileID: 4877297348752644829}
   m_Layer: 0
   m_Name: Plyer
   m_TagString: Player
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aaa9c1f3140c4144a39293c95104214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3849415732984835792
+--- !u!114 &4877297348752644829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6877953979999562662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b89198523dfd0124d837283c1f6faffc, type: 3}
+  m_Script: {fileID: 11500000, guid: 608b41d7dbebf3644aed09d0d9765065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7997157993979124192

@@ -13,9 +13,9 @@ public class MainSceneInstaller : MonoInstaller
     [SerializeField] private GameObject dotPanelPrefab;
     [SerializeField] private GameObject dashPanelPrefab;
 
-    [SerializeField] private InputManager player1input;
-    [SerializeField] private InputManager player2input;
-    [SerializeField] private CPUInputManager cpuinput;
+    [SerializeField] private KeyAssignManager player1key;
+    [SerializeField] private KeyAssignManager player2key;
+    // [SerializeField] private CPUInputManager cpuinput;
 
     [SerializeField] private Canvas pausePanel;
     
@@ -59,17 +59,14 @@ public class MainSceneInstaller : MonoInstaller
             .FromComponentInNewPrefab(dashPanelPrefab)
             .AsTransient();
 
-        Container.Bind<IInputManager>().WithId(1)
-            .To<InputManager>()
-            .FromInstance(player1input);
+        Container.Bind<IKeyAssignManager>().WithId(1)
+            .To<KeyAssignManager>()
+            .FromInstance(player1key);
 
-        Container.Bind<IInputManager>().WithId(2)
-            .To<InputManager>()
-            .FromInstance(player2input);
+        Container.Bind<IKeyAssignManager>().WithId(2)
+            .To<KeyAssignManager>()
+            .FromInstance(player2key);
 
-        Container.Bind<IInputManager>().WithId(99)
-            .To<CPUInputManager>()
-            .FromInstance(cpuinput);
 
         // Container.BindFactory<SignalPanel, SignalPanelFactory>()
         //     .FromComponentInNewPrefab(dashPanelPrefab)

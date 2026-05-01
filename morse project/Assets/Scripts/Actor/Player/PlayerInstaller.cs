@@ -40,5 +40,9 @@ public class PlayerInstaller : Installer<int, PlayerInstaller>
 
         Container.Bind<PlayerHealth>()
             .FromComponentOnRoot().AsSingle();
+
+        Container.Bind<IPlayerBehavior>()
+            .To<PlayerBehavior>()
+            .FromComponentOnRoot().AsSingle();
     }
 }

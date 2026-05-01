@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IKeyAssignManager
 {
-    void KeyAssign();
+    void KeyAssign(IPlayer player);
 }

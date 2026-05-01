@@ -11,13 +11,15 @@ public class Player : MonoBehaviour, IPlayer
 
     public event Action<Vector3> OnPositionChanged;
 
-    public int PlayerId;
+    public int PlayerId { get; set; }
+    public IPlayerBehavior Behavior { get; set; }
 
 
     [Inject]
-    public void Construct(int playerId)
+    public void Construct(int playerId, IPlayerBehavior behavior)
     {
         PlayerId = playerId;
+        Behavior = behavior;
     }
     
     public void SetPosition(Vector3 position)

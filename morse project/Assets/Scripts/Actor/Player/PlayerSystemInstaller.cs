@@ -5,16 +5,16 @@ using Zenject;
 
 public class PlayerSystemInstaller : MonoInstaller
 {
+    [SerializeField] private bool isCPU;
+
     public override void InstallBindings()
     {
         Container.Bind<PlayerSystem>()
             .FromComponentOnRoot()
             .AsSingle();
 
-        var playerSystem = Container.Resolve<PlayerSystem>();
-        bool iscpu = playerSystem.isCPU;
-
-        if (!iscpu)
+        // CPU操作を切り替え
+        if (!isCPU)
         {
             Container.Bind<IInputManager>()
                 .To<InputManager>()
