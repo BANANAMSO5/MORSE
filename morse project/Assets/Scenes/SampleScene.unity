@@ -428,6 +428,7 @@ MonoBehaviour:
   dashPanelPrefab: {fileID: 6885180518245179165, guid: f9cd152c4f7fd6749a11ab1a44175a5f, type: 3}
   player1input: {fileID: 140783680}
   player2input: {fileID: 154875972}
+  cpuinput: {fileID: 2030733364}
   pausePanel: {fileID: 1652859274}
   testPrefab: {fileID: 1177341842308646513, guid: 1af4b9b243da49b40aa137f215e74d8b, type: 3}
 --- !u!114 &100981718
@@ -7022,6 +7023,7 @@ GameObject:
   - component: {fileID: 1470152420}
   - component: {fileID: 1470152422}
   - component: {fileID: 1470152421}
+  - component: {fileID: 1470152423}
   m_Layer: 0
   m_Name: Player1System
   m_TagString: Untagged
@@ -7077,6 +7079,19 @@ MonoBehaviour:
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
+--- !u!114 &1470152423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470152417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64fc26d152380c54a98776f458182ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCPU: 0
 --- !u!1 &1540154639
 GameObject:
   m_ObjectHideFlags: 0
@@ -7614,6 +7629,7 @@ GameObject:
   - component: {fileID: 1718528345}
   - component: {fileID: 1718528347}
   - component: {fileID: 1718528346}
+  - component: {fileID: 1718528348}
   m_Layer: 0
   m_Name: Player2System
   m_TagString: Untagged
@@ -7637,6 +7653,7 @@ Transform:
   - {fileID: 1953696678}
   - {fileID: 1958577924}
   - {fileID: 154875973}
+  - {fileID: 2030733365}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1718528346
@@ -7669,6 +7686,19 @@ MonoBehaviour:
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
+--- !u!114 &1718528348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718528344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64fc26d152380c54a98776f458182ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCPU: 1
 --- !u!1 &1811178800
 GameObject:
   m_ObjectHideFlags: 0
@@ -8196,6 +8226,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &2030733363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2030733365}
+  - component: {fileID: 2030733364}
+  m_Layer: 0
+  m_Name: CPUInputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2030733364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030733363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfe389a4817b0f4489b567a6615fc214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2030733365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030733363}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -171.49664, y: 35.579346, z: -92.81333}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1718528345}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2067726610
 GameObject:
   m_ObjectHideFlags: 0

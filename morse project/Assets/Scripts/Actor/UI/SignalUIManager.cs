@@ -33,12 +33,6 @@ public class SignalUIManager : MonoBehaviour, ISignalUIManager
         _areas = new(){ signalPanelArea.Area1, signalPanelArea.Area2, signalPanelArea.Area3, signalPanelArea.Area4 };
     }
 
-    // InputManager(Player)が生成されたときに入力時の処理を登録
-    public void OnGenerate(InputManagerSignal signal)
-    {
-        
-    }
-
     // 「・」のパネルを表示
     public void DotHandle()
     {

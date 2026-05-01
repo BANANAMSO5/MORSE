@@ -15,6 +15,7 @@ public class MainSceneInstaller : MonoInstaller
 
     [SerializeField] private InputManager player1input;
     [SerializeField] private InputManager player2input;
+    [SerializeField] private CPUInputManager cpuinput;
 
     [SerializeField] private Canvas pausePanel;
     
@@ -58,13 +59,17 @@ public class MainSceneInstaller : MonoInstaller
             .FromComponentInNewPrefab(dashPanelPrefab)
             .AsTransient();
 
-        Container.Bind<IInputManager>()
-            .WithId(1)
+        Container.Bind<IInputManager>().WithId(1)
+            .To<InputManager>()
             .FromInstance(player1input);
 
-        Container.Bind<IInputManager>()
-            .WithId(2)
+        Container.Bind<IInputManager>().WithId(2)
+            .To<InputManager>()
             .FromInstance(player2input);
+
+        Container.Bind<IInputManager>().WithId(99)
+            .To<CPUInputManager>()
+            .FromInstance(cpuinput);
 
         // Container.BindFactory<SignalPanel, SignalPanelFactory>()
         //     .FromComponentInNewPrefab(dashPanelPrefab)
@@ -90,7 +95,6 @@ public class MainSceneInstaller : MonoInstaller
         Container.Bind<IMenuManager>().To<MenuManager>().AsSingle();
 
         SignalBusInstaller.Install(Container);
-        Container.DeclareSignal<InputManagerSignal>();
 
         Container.BindFactory<int, TestObj, TestObj.Factory>()
             .FromSubContainerResolve()

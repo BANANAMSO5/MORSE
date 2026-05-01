@@ -42,6 +42,7 @@ public class InputManager : MonoBehaviour, IInputManager
     [Inject]
     public void Construct()
     {
+        enabled = false;
         // bool _isLocalPlayer = playerId == TestGameManager.Id;
         // enabled = _isLocalPlayer;
     }
@@ -113,9 +114,4 @@ public class InputManager : MonoBehaviour, IInputManager
             _pauseMenu?.Invoke();
         }
     }
-}
-
-public class InputManagerSignal
-{
-    public InputManager Instance;
 }
