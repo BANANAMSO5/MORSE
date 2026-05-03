@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IPlayerBehavior
 {
-    IMoveManager MoveManager { get; }
-    IBulletManager BulletManager { get; }
+    IISignalAction ISignalAction { get; }
+    IMSignalAction MSignalAction { get; }
+    IUSignalAction USignalAction { get; }
 }

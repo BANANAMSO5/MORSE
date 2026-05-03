@@ -10,18 +10,12 @@ using Zenject;
 public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
 {
     private IInputManager _inputManager;
-    private IMoveManager _moveManager;
-    private IBulletManager _bulletManager;
-    private IMenuManager _menuManager;
     private Action[] _actions;
 
     [Inject]
     public void Construct(IInputManager inputManager)
     {
         _inputManager = inputManager;
-        // _textUIManager = textUIManager;
-        // _menuManager = menuManager;
-
     }
 
     public void KeyAssign(IPlayer player)
@@ -41,11 +35,11 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
             null,                       // F
             null,                       // G
             null,                       // H
-            player.Behavior.MoveManager.MoveRight,     // I
+            player.Behavior.ISignalAction.Execute,     // I
             null,                       // J
             null,                       // K
             null,                       // L
-            player.Behavior.MoveManager.MoveLeft,      // M
+            player.Behavior.MSignalAction.Execute,      // M
             null,                       // N
             null,                       // O
             null,                       // P
@@ -53,7 +47,7 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
             null,                       // R
             null,                       // S
             null,                       // T
-            player.Behavior.BulletManager.Shot,        // U
+            player.Behavior.USignalAction.Execute,        // U
             null,                       // V
             null,                       // W
             null,                       // X

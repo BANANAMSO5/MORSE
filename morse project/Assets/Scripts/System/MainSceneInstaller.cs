@@ -88,7 +88,7 @@ public class MainSceneInstaller : MonoInstaller
         Container.Bind<IPositionManager>().To<PositionManager>().AsSingle();
         Container.Bind<DamageEffectManager>().AsSingle();
         Container.Bind<IMatchManager>().To<MatchManager>().AsSingle();
-        // Container.Bind<IKeyAssignManager>().To<KeyAssignManager>().AsSingle();
+        Container.Bind<IKeyAssignManager>().To<KeyAssignManager>().AsSingle();
         Container.Bind<IMenuManager>().To<MenuManager>().AsSingle();
 
         SignalBusInstaller.Install(Container);

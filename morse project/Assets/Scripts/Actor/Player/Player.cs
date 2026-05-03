@@ -9,8 +9,6 @@ public class Player : MonoBehaviour, IPlayer
 {
     public int direction = 1;
 
-    public event Action<Vector3> OnPositionChanged;
-
     public int PlayerId { get; set; }
     public IPlayerBehavior Behavior { get; set; }
 

@@ -15,22 +15,22 @@ public class PositionManager : IPositionManager
     private Vector3 _position2;
 
     // [Inject]
-    public void Construct([Inject(Id = "player1")]Player player1, [Inject(Id = "player2")]Player player2)
-    {
-        _player1 = player1;
-        _player2 = player2;
-        _player1.OnPositionChanged += pos =>
-        {
-            _position1 = pos;
-            CheckPosition();
-        };
+    // public void Construct([Inject(Id = "player1")]Player player1, [Inject(Id = "player2")]Player player2)
+    // {
+    //     _player1 = player1;
+    //     _player2 = player2;
+    //     _player1.OnPositionChanged += pos =>
+    //     {
+    //         _position1 = pos;
+    //         CheckPosition();
+    //     };
 
-        _player2.OnPositionChanged += pos =>
-        {
-            _position2 = pos;
-            CheckPosition();
-        };
-    }
+    //     _player2.OnPositionChanged += pos =>
+    //     {
+    //         _position2 = pos;
+    //         CheckPosition();
+    //     };
+    // }
 
     // Update is called once per frame
     public void CheckPosition()

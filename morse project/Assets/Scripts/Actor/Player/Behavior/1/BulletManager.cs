@@ -7,7 +7,7 @@ using Zenject;
 /// <summary>
 /// 遠距離系の技を管理するクラス
 /// </summary>
-public class BulletManager : MonoBehaviour, IBulletManager
+public class BulletManager : MonoBehaviour, IUSignalAction
 {
     // Bulletの共通データ
     private BulletData _data;
@@ -20,8 +20,7 @@ public class BulletManager : MonoBehaviour, IBulletManager
         _factory = factory;
     }
 
-    // TODO:あとでメソッド名かえる
-    public void Shot()
+    public void Execute()
     {
         _data.Position = transform.position;
         Bullet bullet = _factory.Create(_data);

@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IMoveManager
+public interface IISignalAction
 {
-    void MoveLeft();
-    void MoveRight();
+    void Execute();
 }

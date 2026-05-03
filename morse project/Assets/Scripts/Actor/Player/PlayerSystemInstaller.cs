@@ -9,10 +9,6 @@ public class PlayerSystemInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<PlayerSystem>()
-            .FromComponentOnRoot()
-            .AsSingle();
-
         // CPU操作を切り替え
         if (!isCPU)
         {

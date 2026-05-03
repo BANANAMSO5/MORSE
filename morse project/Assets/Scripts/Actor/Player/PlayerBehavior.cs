@@ -5,16 +5,19 @@ using Zenject;
 
 public class PlayerBehavior : MonoBehaviour, IPlayerBehavior
 {
-    public IMoveManager MoveManager { get; set; }
-    public IBulletManager BulletManager { get; set; }
+    public IISignalAction ISignalAction { get; set; }
+    public IMSignalAction MSignalAction { get; set; }
+    public IUSignalAction USignalAction { get; set; }
 
     [Inject]
     public void Construct(
-        IMoveManager moveManager,
-        IBulletManager bulletManager
+        IISignalAction iSignalAction,
+        IMSignalAction mSignalAction,
+        IUSignalAction uSignalAction
     )
     {
-        MoveManager = moveManager;
-        BulletManager = bulletManager;
+        ISignalAction = iSignalAction;
+        MSignalAction = mSignalAction;
+        USignalAction = uSignalAction;
     }
 }

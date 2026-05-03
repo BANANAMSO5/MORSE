@@ -26,15 +26,19 @@ public class PlayerInstaller : Installer<int, PlayerInstaller>
         //     .To<InputManager>()
         //     .FromComponentOnRoot().AsSingle();
 
-        Container.Bind<IKeyAssignManager>()
-            .To<KeyAssignManager>()
+        // Container.Bind<IKeyAssignManager>()
+        //     .To<KeyAssignManager>()
+        //     .FromComponentOnRoot().AsSingle();
+
+        Container.Bind<IISignalAction>()
+            .To<RightMoveManager>()
             .FromComponentOnRoot().AsSingle();
 
-        Container.Bind<IMoveManager>()
-            .To<MoveManager>()
+        Container.Bind<IMSignalAction>()
+            .To<LeftMoveManager>()
             .FromComponentOnRoot().AsSingle();
 
-        Container.Bind<IBulletManager>()
+        Container.Bind<IUSignalAction>()
             .To<BulletManager>()
             .FromComponentOnRoot().AsSingle();
 

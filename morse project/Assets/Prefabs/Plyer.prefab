@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 4567462637391760905}
   - component: {fileID: 8257783962999113685}
   - component: {fileID: 4877297348752644829}
+  - component: {fileID: 6245243228325989278}
   m_Layer: 0
   m_Name: Plyer
   m_TagString: Player
@@ -216,7 +217,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  PlayerId: 0
 --- !u!114 &8307418918326347714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,6 +271,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 608b41d7dbebf3644aed09d0d9765065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6245243228325989278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6877953979999562662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed850a56ec79014a9d4fd86135cffa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 0
+  duration: 60
+  moveDistance: 3
+  maxStretch: 3
 --- !u!1 &7997157993979124192
 GameObject:
   m_ObjectHideFlags: 0
