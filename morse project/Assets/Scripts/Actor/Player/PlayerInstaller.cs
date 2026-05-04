@@ -29,10 +29,13 @@ public class PlayerInstaller : Installer<int, PlayerInstaller>
         // Container.Bind<IKeyAssignManager>()
         //     .To<KeyAssignManager>()
         //     .FromComponentOnRoot().AsSingle();
+        Container.BindInterfacesTo<PlayerTickRunner>().AsSingle();
 
-        Container.BindInterfacesTo<RightMoveManager>().AsSingle();
+        Container.Bind<IISignalAction>()
+            .To<RightMoveManager>().AsSingle();
 
-        Container.BindInterfacesTo<LeftMoveManager>().AsSingle();
+        Container.Bind<IMSignalAction>()
+            .To<LeftMoveManager>().AsSingle();
 
         Container.Bind<IUSignalAction>()
             .To<BulletManager>().AsSingle();
