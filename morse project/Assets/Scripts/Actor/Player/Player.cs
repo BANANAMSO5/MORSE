@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, IPlayer
 
     public int PlayerId { get; set; }
     public IPlayerBehavior Behavior { get; set; }
+    public Transform Transform => transform;
 
 
     [Inject]

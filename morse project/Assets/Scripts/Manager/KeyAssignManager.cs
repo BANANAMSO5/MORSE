@@ -9,8 +9,9 @@ using Zenject;
 /// </summary>
 public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
 {
+    private IPlayer _player;
     private IInputManager _inputManager;
-    private Action[] _actions;
+    private Action<IPlayer>[] _actions;
 
     [Inject]
     public void Construct(IInputManager inputManager)
@@ -20,12 +21,13 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
 
     public void KeyAssign(IPlayer player)
     {
-        _inputManager.Setenable(player.PlayerId);
+        _player = player;
+        _inputManager.Setenable(_player.PlayerId);
         _inputManager.OnFixChar += Handle;
 
         // スキル・行動などを登録
         // 順番や総数を変えないこと
-        _actions = new Action[]
+        _actions = new Action<IPlayer>[]
         {
             null,                       // A
             null,                       // B
@@ -35,11 +37,11 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
             null,                       // F
             null,                       // G
             null,                       // H
-            player.Behavior.ISignalAction.Execute,     // I
+            _player.Behavior.ISignalAction.Execute,     // I
             null,                       // J
             null,                       // K
             null,                       // L
-            player.Behavior.MSignalAction.Execute,      // M
+            _player.Behavior.MSignalAction.Execute,      // M
             null,                       // N
             null,                       // O
             null,                       // P
@@ -47,7 +49,7 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
             null,                       // R
             null,                       // S
             null,                       // T
-            player.Behavior.USignalAction.Execute,        // U
+            _player.Behavior.USignalAction.Execute,        // U
             null,                       // V
             null,                       // W
             null,                       // X
@@ -62,6 +64,6 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
 
     public void Handle(InputChar type)
     {
-        _actions[(int)type]?.Invoke();
+        _actions[(int)type]?.Invoke(_player);
     }
 }

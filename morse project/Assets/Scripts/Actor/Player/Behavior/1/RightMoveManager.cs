@@ -3,57 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class RightMoveManager : MonoBehaviour, IISignalAction
+public class RightMoveManager : ITickable, IISignalAction
 {
     public float time = 0f;
     public float duration = 60f;
     public float moveDistance = 3.0f;
     public float maxStretch = 3.0f;
 
-    private bool isMove = false;
+    private Transform _target;
+    private bool _isMove = false;
     Vector3 startPos;
     Vector3 endPos;
 
     // Update is called once per frame
-    void Update()
+    public void Tick()
     {
-        if (isMove)
+        if (_isMove)
         {
             if (time < duration)
             {
                 float t = time / duration;
 
                 // 移動
-                transform.position = Vector3.Lerp(startPos, endPos, t);
+                _target.position = Vector3.Lerp(startPos, endPos, t);
 
                 // 変形
                 float stretch = Mathf.Lerp(1f, maxStretch, Mathf.Sin(t * Mathf.PI));
-                transform.localScale = new Vector3(stretch, 1f, 1f);
+                _target.localScale = new Vector3(stretch, 1f, 1f);
 
                 time += 1;
-                
-                // Debug.Log("duration:" + duration);
-                // Debug.Log("t:" + t);
-                // Debug.Log("time:" + time);
             }
             else
             {
-                isMove = false;
+                _isMove = false;
                 time = 0;
-
-                // Debug.Log("isMove:" + isMove);
-                // Debug.Log("startPos:" + startPos);
-                // Debug.Log("endPos:" + endPos);
 
                 return;
             }
         }
     }
 
-    public void Execute()
+    public void Execute(IPlayer player)
     {
-        isMove = true;
-        startPos = transform.position;
+        _target = player.Transform;
+        _isMove = true;
+        startPos = _target.position;
         endPos = startPos + Vector3.right * moveDistance; 
     }
 }

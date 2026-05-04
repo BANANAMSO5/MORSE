@@ -30,17 +30,12 @@ public class PlayerInstaller : Installer<int, PlayerInstaller>
         //     .To<KeyAssignManager>()
         //     .FromComponentOnRoot().AsSingle();
 
-        Container.Bind<IISignalAction>()
-            .To<RightMoveManager>()
-            .FromComponentOnRoot().AsSingle();
+        Container.BindInterfacesTo<RightMoveManager>().AsSingle();
 
-        Container.Bind<IMSignalAction>()
-            .To<LeftMoveManager>()
-            .FromComponentOnRoot().AsSingle();
+        Container.BindInterfacesTo<LeftMoveManager>().AsSingle();
 
         Container.Bind<IUSignalAction>()
-            .To<BulletManager>()
-            .FromComponentOnRoot().AsSingle();
+            .To<BulletManager>().AsSingle();
 
         Container.Bind<PlayerHealth>()
             .FromComponentOnRoot().AsSingle();

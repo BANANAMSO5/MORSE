@@ -422,7 +422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 0}
   player2: {fileID: 0}
-  playerPrefab: {fileID: 6877953979999562662, guid: 654ea9b546353ae4896fd3aa44d92547, type: 3}
+  playerPrefab: {fileID: 4195221463930429488, guid: 1d45fc40e0df7ba4a96d6cb79d1bea47, type: 3}
   bulletPrefab: {fileID: 8144684586387193010, guid: 974c97e4f6bdbbd4c969d8f65a5cc05c, type: 3}
   dotPanelPrefab: {fileID: 4563608351252696621, guid: be0f1a7945b421047bef1d518bf1a231, type: 3}
   dashPanelPrefab: {fileID: 6885180518245179165, guid: f9cd152c4f7fd6749a11ab1a44175a5f, type: 3}

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IUSignalAction
 {
-    void Execute();
+    void Execute(IPlayer player);
 }

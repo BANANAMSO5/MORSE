@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IMSignalAction
 {
-    void Execute();
+    void Execute(IPlayer player);
 }

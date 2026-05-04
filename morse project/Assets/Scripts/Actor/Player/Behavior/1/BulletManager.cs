@@ -7,7 +7,7 @@ using Zenject;
 /// <summary>
 /// 遠距離系の技を管理するクラス
 /// </summary>
-public class BulletManager : MonoBehaviour, IUSignalAction
+public class BulletManager : IUSignalAction
 {
     // Bulletの共通データ
     private BulletData _data;
@@ -20,9 +20,9 @@ public class BulletManager : MonoBehaviour, IUSignalAction
         _factory = factory;
     }
 
-    public void Execute()
+    public void Execute(IPlayer player)
     {
-        _data.Position = transform.position;
+        _data.Position = player.Transform.position;
         Bullet bullet = _factory.Create(_data);
         // TODO: Shot()なしでいきたい
         bullet.Shot();
