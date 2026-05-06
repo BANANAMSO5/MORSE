@@ -36,24 +36,10 @@ public class InputManager : MonoBehaviour, IInputManager
         {"..-", U}, {"...-", V}, {".--", W}, {"-..-", X}, {"-.--", Y},
         {"--..", Z}
     };
-    
 
-    [Inject]
-    public void Construct()
+    public void SetActive(bool value)
     {
-        // デフォルトでDisable。Playerが登録されたらEnableになる
-        enabled = false;
-    }
-
-    void Start()
-    {
-        // _signalBus.Fire(new InputManagerSignal{ Instance = this });
-    }
-
-    public void Setenable(int id)
-    {
-        bool _isLocalPlayer = id == TestGameManager.Id;
-        enabled = _isLocalPlayer;
+        enabled = value;
     }
 
     // Update is called once per frame

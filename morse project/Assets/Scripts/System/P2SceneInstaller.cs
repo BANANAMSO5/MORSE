@@ -15,6 +15,8 @@ public class P2SceneInstaller : MonoInstaller
 
     [SerializeField] private KeyAssignManager player1key;
     [SerializeField] private KeyAssignManager player2key;
+    [SerializeField] private InputRouteManager player1route;
+    [SerializeField] private InputRouteManager player2route;
     // [SerializeField] private CPUInputManager cpuinput;
 
     [SerializeField] private Canvas pausePanel;
@@ -66,6 +68,12 @@ public class P2SceneInstaller : MonoInstaller
         Container.Bind<IKeyAssignManager>().WithId(2)
             .To<KeyAssignManager>()
             .FromInstance(player2key);
+
+        Container.Bind<InputRouteManager>().WithId(1)
+            .FromInstance(player1route);
+
+        Container.Bind<InputRouteManager>().WithId(2)
+            .FromInstance(player2route);
 
 
         // Container.BindFactory<SignalPanel, SignalPanelFactory>()

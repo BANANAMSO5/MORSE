@@ -5,7 +5,7 @@ using UnityEngine;
 
 public interface IInputManager
 {
-    void Setenable(int Id);
+    void SetActive(bool value);
     event Action<InputChar> OnFixChar;
     event Action OnDotSignal;
     event Action OnDashSignal;

@@ -25,7 +25,7 @@ public class CPUInputManager : MonoBehaviour, IInputManager
         enabled = false;
     }
     
-    public void Setenable(int id)
+    public void SetActive(bool value)
     {
         enabled = true;
     }

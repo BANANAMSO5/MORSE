@@ -22,7 +22,6 @@ public class KeyAssignManager : MonoBehaviour, IKeyAssignManager
     public void KeyAssign(IPlayer player)
     {
         _player = player;
-        _inputManager.Setenable(_player.PlayerId);
         _inputManager.OnFixChar += Handle;
 
         // スキル・行動などを登録
