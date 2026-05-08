@@ -8,15 +8,16 @@ public class SimpleSignalUIManager : MonoBehaviour, ISignalUIManager
     private IInputManager _inputManager;
     private DotSignalPanelFactory _dotFactory;
     private DashSignalPanelFactory _dashFactory;
-    private List<SignalPanel> _panels = new();
     private IPanelAssigner _assigner;
+    private Transform _parent;
 
     [Inject]
     public void Construct(
         IInputManager inputManager,
         DotSignalPanelFactory dotFactory, 
         DashSignalPanelFactory dashFactory, 
-        IPanelAssigner assigner
+        IPanelAssigner assigner,
+        Transform parent
     )
     {
         _inputManager = inputManager;
@@ -26,20 +27,21 @@ public class SimpleSignalUIManager : MonoBehaviour, ISignalUIManager
         _dotFactory = dotFactory;
         _dashFactory = dashFactory;
         _assigner = assigner;
+        _parent = parent;
     }
 
-    // 「・」のパネルを表示
+    // 「・」のパネルを生成
     public void DotHandle()
     {
          SignalPanel signalPanel = _dotFactory.Create();
-         _assigner.Add(signalPanel);
+         _assigner.Add(signalPanel, _parent);
     }
 
-    // 「ー」のパネルを表示
+    // 「ー」のパネルを生成
     public void DashHandle()
     {
          SignalPanel signalPanel = _dashFactory.Create();
-        _assigner.Add(signalPanel);
+        _assigner.Add(signalPanel, _parent);
     }
 
     // 入力が終了したらパネルを全削除

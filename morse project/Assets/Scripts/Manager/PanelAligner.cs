@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelAligner : MonoBehaviour, IPanelAligner
+public class PanelAligner : IPanelAligner
 {
     private const float offsetX = 150.0f;
     private const float duration = 0.25f;

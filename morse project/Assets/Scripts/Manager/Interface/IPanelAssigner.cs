@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IPanelAssigner
 {
-    void Add(SignalPanel panel);
+    void Add(SignalPanel panel, Transform parent);
     void Period();
 }

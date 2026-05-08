@@ -48,7 +48,6 @@ public class InputManager : MonoBehaviour, IInputManager
         // スペースキー押した瞬間
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("C");
             pressStartTime = Time.time;
             isPressing = true;
         }

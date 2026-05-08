@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class PanelStocker : MonoBehaviour, IPanelStocker
+public class PanelStocker : IPanelStocker
 {
     private const int MaxCount = 20;
     private List<RectTransform> _panels = new();
     private IPanelAligner _aligner;
+    private IObjectService _objectService;
 
     [Inject]
     public void Construct(
-        IPanelAligner aligner
+        IPanelAligner aligner,
+        IObjectService objectService
     )
     {
         _aligner = aligner;
+        _objectService = objectService;
     }
 
     public void Add(RectTransform panel)
@@ -31,7 +34,7 @@ public class PanelStocker : MonoBehaviour, IPanelStocker
 
             _panels.RemoveAt(_panels.Count - 1);
 
-            Destroy(oldest.gameObject);
+            _objectService.DestroyObject(oldest.gameObject);
         }
 
     }

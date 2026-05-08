@@ -3,26 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class PanelAssigner : MonoBehaviour, IPanelAssigner
+public class PanelAssigner : IPanelAssigner
 {
-    private const int MaxCount = 20;
-    private List<SignalPanel> _panels = new();
-    private Transform _parentCanvas;
     private IPanelStocker _stocker;
 
     [Inject]
-    public void Construct(
-        Transform parentCanvas,
-        IPanelStocker stocker
-    )
+    public void Construct(IPanelStocker stocker)
     {
-        _parentCanvas = parentCanvas;
         _stocker = stocker;
     }
     
-    public void Add(SignalPanel panel)
+    public void Add(SignalPanel panel, Transform parent)
     {
-        panel.transform.SetParent(_parentCanvas, false);
+        panel.transform.SetParent(parent, false);
         var rect = panel.GetComponent<RectTransform>();
         _stocker.Add(rect);
     }
