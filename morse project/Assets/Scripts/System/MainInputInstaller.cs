@@ -5,7 +5,7 @@ using Zenject;
 
 public class MainInputInstaller : MonoInstaller
 {
-    [SerializeField] private Canvas parentCanvas;
+    [SerializeField] private Transform parent;
 
     public override void InstallBindings()
     {
@@ -25,7 +25,7 @@ public class MainInputInstaller : MonoInstaller
                 .To<PanelAligner>()
                 .FromComponentInHierarchy().AsSingle();
         
-        Container.Bind<Canvas>()
-            .FromInstance(parentCanvas);
+        Container.Bind<Transform>()
+            .FromInstance(parent);
     }
 }

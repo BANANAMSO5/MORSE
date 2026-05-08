@@ -7,12 +7,12 @@ public class PanelAssigner : MonoBehaviour, IPanelAssigner
 {
     private const int MaxCount = 20;
     private List<SignalPanel> _panels = new();
-    private Canvas _parentCanvas;
+    private Transform _parentCanvas;
     private IPanelStocker _stocker;
 
     [Inject]
     public void Construct(
-        Canvas parentCanvas,
+        Transform parentCanvas,
         IPanelStocker stocker
     )
     {
@@ -22,7 +22,7 @@ public class PanelAssigner : MonoBehaviour, IPanelAssigner
     
     public void Add(SignalPanel panel)
     {
-        panel.transform.SetParent(_parentCanvas.transform, false);
+        panel.transform.SetParent(_parentCanvas, false);
         var rect = panel.GetComponent<RectTransform>();
         _stocker.Add(rect);
     }

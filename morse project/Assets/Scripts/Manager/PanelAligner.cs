@@ -43,7 +43,7 @@ public class PanelAligner : MonoBehaviour, IPanelAligner
     {
         foreach (var rect in rects)
         {
-            rect.anchoredPosition += Vector2.left * offsetX;
+            rect.anchoredPosition += Vector2.right * offsetX;
         }
     }
 }

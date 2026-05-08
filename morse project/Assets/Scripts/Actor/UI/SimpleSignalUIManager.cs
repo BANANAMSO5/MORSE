@@ -26,13 +26,11 @@ public class SimpleSignalUIManager : MonoBehaviour, ISignalUIManager
         _dotFactory = dotFactory;
         _dashFactory = dashFactory;
         _assigner = assigner;
-        Debug.Log("A");
     }
 
     // 「・」のパネルを表示
     public void DotHandle()
     {
-        Debug.Log("B");
          SignalPanel signalPanel = _dotFactory.Create();
          _assigner.Add(signalPanel);
     }
