@@ -48,6 +48,7 @@ public class InputManager : MonoBehaviour, IInputManager
         // スペースキー押した瞬間
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("C");
             pressStartTime = Time.time;
             isPressing = true;
         }
@@ -79,7 +80,7 @@ public class InputManager : MonoBehaviour, IInputManager
         {
             if (Time.time - lastInputTime > letterPause)
             {
-                OnEndSignal.Invoke();
+                OnEndSignal?.Invoke();
 
                 // 文字変換できる信号か
                 string signal = string.Join("", currentSignal);
