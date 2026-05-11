@@ -1,0 +1,81 @@
+■ シンプル構成（Listenerなし）
+① Signal定義（インスタンス付き）
+public class SpawnedSignal
+{
+    public MyUnit Instance;
+}
+② 生成側（MyUnit自身が発火）
+public class MyUnit : MonoBehaviour
+{
+    [Inject] SignalBus _signalBus;
+
+    void Start()
+    {
+        _signalBus.Fire(new SpawnedSignal
+        {
+            Instance = this
+        });
+    }
+}
+③ 受信側（各クラスが直接Subscribe）
+ClassA
+public class ClassA : IInitializable, IDisposable
+{
+    private readonly SignalBus _signalBus;
+
+    public ClassA(SignalBus signalBus)
+    {
+        _signalBus = signalBus;
+    }
+
+    public void Initialize()
+    {
+        _signalBus.Subscribe<SpawnedSignal>(OnSpawned);
+    }
+
+    public void Dispose()
+    {
+        _signalBus.Unsubscribe<SpawnedSignal>(OnSpawned);
+    }
+
+    private void OnSpawned(SpawnedSignal signal)
+    {
+        UnityEngine.Debug.Log($"A received: {signal.Instance.name}");
+    }
+}
+ClassB
+public class ClassB : IInitializable, IDisposable
+{
+    private readonly SignalBus _signalBus;
+
+    public ClassB(SignalBus signalBus)
+    {
+        _signalBus = signalBus;
+    }
+
+    public void Initialize()
+    {
+        _signalBus.Subscribe<SpawnedSignal>(OnSpawned);
+    }
+
+    public void Dispose()
+    {
+        _signalBus.Unsubscribe<SpawnedSignal>(OnSpawned);
+    }
+
+    private void OnSpawned(SpawnedSignal signal)
+    {
+        UnityEngine.Debug.Log($"B received: {signal.Instance.name}");
+    }
+}
+④ Installer
+public class GameInstaller : MonoInstaller
+{
+    public override void InstallBindings()
+    {
+        Container.DeclareSignal<SpawnedSignal>();
+
+        Container.Bind<ClassA>().AsSingle().NonLazy();
+        Container.Bind<ClassB>().AsSingle().NonLazy();
+    }
+}
