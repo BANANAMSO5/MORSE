@@ -38,5 +38,8 @@ public class MainSceneInstaller : MonoInstaller
         Container.Bind<IPanelAligner>().To<PanelAligner>().AsSingle();
 
         Container.Bind<ITextChanger>().To<TextChanger>().AsSingle();
+
+        // mission
+        
     }
 }
