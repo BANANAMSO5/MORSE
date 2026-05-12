@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class SignalMissionTracker : ISignalMissionTracker
+public class MissionTracker : IMissionTracker
 {
     private IMissionResolver _resolver;
 
@@ -30,8 +30,7 @@ public class SignalMissionTracker : ISignalMissionTracker
 
         progress.Count++;
 
-        var definition =
-            _resolver.Get(missionId);
+        var definition = _resolver.GetFromId(missionId);
 
         int target =
             definition.Milestones[

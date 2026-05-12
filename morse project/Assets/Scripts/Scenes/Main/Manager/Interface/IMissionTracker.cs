@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISignalMissionTracker
+public interface IMissionTracker
 {
     void AddProgress(string missionId);
 }

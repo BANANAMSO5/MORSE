@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class SignalMissionInstaller : MonoInstaller
+public class WordMissionInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
+        Container.Bind<IWordChecker>()
+            .To<WordChecker>()
+            .AsSingle();
     }
 }

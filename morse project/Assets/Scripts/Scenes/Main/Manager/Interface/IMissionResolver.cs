@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IMissionResolver
 {
-    MissionDefinition Get(string id);
+    Dictionary<string, MissionDefinition> GetAll();
+    MissionDefinition GetFromId(string id);
 }

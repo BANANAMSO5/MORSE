@@ -18,7 +18,12 @@ public class MissionResolver : IMissionResolver
         map = defs.ToDictionary(x => x.Id);
     }
 
-    public MissionDefinition Get(string id)
+    public Dictionary<string, MissionDefinition> GetAll()
+    {
+        return map;
+    }
+
+    public MissionDefinition GetFromId(string id)
     {
         return map[id];
     }

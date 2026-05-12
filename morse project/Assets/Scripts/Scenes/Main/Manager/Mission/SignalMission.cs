@@ -5,15 +5,13 @@ using Zenject;
 
 public class SignalMission : MonoBehaviour, ISignalMission
 {
-     [SerializeField]
-    private MissionDefinition[] definitions;
     private IInputManager _inputManager;
-    private ISignalMissionTracker _missionTracker;
+    private IMissionTracker _missionTracker;
 
     [Inject]
     public void Construct(
         IInputManager inputManager, 
-        ISignalMissionTracker missionTracker
+        IMissionTracker missionTracker
     )
     {
         _inputManager = inputManager;
