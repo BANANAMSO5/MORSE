@@ -11,7 +11,7 @@ public class SignalUIManager : MonoBehaviour, ISignalUIManager
     private IInputManager _inputManager;
     private DotSignalPanelFactory _dotFactory;
     private DashSignalPanelFactory _dashFactory;
-    private List<SignalPanel> _panels = new();
+    private List<IPanel> _panels = new();
     private List<Transform> _areas = new();
 
     [Inject]
@@ -36,23 +36,23 @@ public class SignalUIManager : MonoBehaviour, ISignalUIManager
     // 「・」のパネルを表示
     public void DotHandle()
     {
-         SignalPanel signalPanel = _dotFactory.Create();
+         IPanel signalPanel = _dotFactory.Create();
          _panels.Add(signalPanel);
-         signalPanel.transform.SetParent(_areas[_panels.Count - 1], false);
+         (signalPanel as MonoBehaviour).transform.SetParent(_areas[_panels.Count - 1], false);
     }
 
     // 「ー」のパネルを表示
     public void DashHandle()
     {
-         SignalPanel signalPanel = _dashFactory.Create();
+         IPanel signalPanel = _dashFactory.Create();
          _panels.Add(signalPanel);
-         signalPanel.transform.SetParent(_areas[_panels.Count - 1], false);
+         (signalPanel as MonoBehaviour).transform.SetParent(_areas[_panels.Count - 1], false);
     }
 
     // 入力が終了したらパネルを全削除
     public void EndSignalHandle()
     {
-         _panels.ForEach(x => Destroy(x.gameObject));
+         _panels.ForEach(x => Destroy((x as MonoBehaviour).gameObject));
          _panels.Clear();
     }
 }

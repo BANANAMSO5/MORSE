@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class SimpleSignalUIInstaller : MonoInstaller
+public class MIssionUIInstaller : MonoInstaller
 {
     [SerializeField] private Transform parent;
-
 
     public override void InstallBindings()
     {
         Container.Bind<Transform>()
             .FromInstance(parent);
 
-        Container.Bind<IPanelAssigner>().To<SignalPanelAssigner>().AsSingle();
+        Container.Bind<IPanelAssigner>().To<MissionPanelAssigner>().AsSingle();
         Container.Bind<IPanelStocker>().To<SignalPanelStocker>().AsSingle();
         Container.Bind<IPanelAligner>().To<SignalPanelAligner>().AsSingle();
     }

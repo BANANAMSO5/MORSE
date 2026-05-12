@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelAligner : IPanelAligner
+public class SignalPanelAligner : IPanelAligner
 {
     private const float offsetX = 150.0f;
     private const float duration = 0.25f;

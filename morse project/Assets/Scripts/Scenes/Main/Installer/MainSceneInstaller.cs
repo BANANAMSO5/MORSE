@@ -6,9 +6,11 @@ using Zenject;
 public class MainSceneInstaller : MonoInstaller
 {
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private MissionUIManager mssionManager;
     [SerializeField] private ObjectService objectService;
     [SerializeField] private GameObject dotPanelPrefab;
     [SerializeField] private GameObject dashPanelPrefab;
+    [SerializeField] private GameObject missionPanelPrefab;
 
     public override void InstallBindings()
     {
@@ -16,28 +18,36 @@ public class MainSceneInstaller : MonoInstaller
             .To<InputManager>()
             .FromInstance(inputManager)
             .AsSingle();
+
+        Container.Bind<IMissionUIManager>()
+            .To<MissionUIManager>()
+            .FromInstance(mssionManager)
+            .AsSingle();
         
         Container.Bind<IObjectService>()
             .To<ObjectService>()
             .FromInstance(objectService)
             .AsSingle();
 
-        Container.BindFactory<SignalPanel, DotSignalPanelFactory>()
+        Container.BindFactory<IPanel, DotSignalPanelFactory>()
+            .To<SignalPanel>()
             .FromComponentInNewPrefab(dotPanelPrefab)
             .AsTransient();
 
-        Container.BindFactory<SignalPanel, DashSignalPanelFactory>()
+        Container.BindFactory<IPanel, DashSignalPanelFactory>()
+            .To<SignalPanel>()
             .FromComponentInNewPrefab(dashPanelPrefab)
             .AsTransient();
         
-
+        Container.BindFactory<float, IPanel, MissionProgressPanelFactory>()
+            .To<MissionProgressPanel>()
+            .FromComponentInNewPrefab(missionPanelPrefab)
+            .AsTransient();
 
         
-        Container.Bind<IPanelAssigner>().To<PanelAssigner>().AsSingle();
-        Container.Bind<IPanelStocker>().To<PanelStocker>().AsSingle();
-        Container.Bind<IPanelAligner>().To<PanelAligner>().AsSingle();
+        
 
-        Container.Bind<ITextChanger>().To<TextChanger>().AsSingle();
+        
 
         // mission
         

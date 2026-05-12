@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class PanelStocker : IPanelStocker
+public class SignalPanelStocker : IPanelStocker
 {
     private const int MaxCount = 20;
     private List<RectTransform> _panels = new();

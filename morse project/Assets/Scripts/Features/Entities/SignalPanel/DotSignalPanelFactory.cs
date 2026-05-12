@@ -3,6 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class DotSignalPanelFactory : PlaceholderFactory<SignalPanel>
+public class DotSignalPanelFactory : PlaceholderFactory<IPanel>
 {
 }

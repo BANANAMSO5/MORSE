@@ -33,14 +33,14 @@ public class SimpleSignalUIManager : MonoBehaviour, ISignalUIManager
     // 「・」のパネルを生成
     public void DotHandle()
     {
-         SignalPanel signalPanel = _dotFactory.Create();
-         _assigner.Add(signalPanel, _parent);
+        IPanel signalPanel = _dotFactory.Create();
+        _assigner.Add(signalPanel, _parent);
     }
 
     // 「ー」のパネルを生成
     public void DashHandle()
     {
-         SignalPanel signalPanel = _dashFactory.Create();
+        IPanel signalPanel = _dashFactory.Create();
         _assigner.Add(signalPanel, _parent);
     }
 

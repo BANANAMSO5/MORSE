@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class PanelAssigner : IPanelAssigner
+public class SignalPanelAssigner : IPanelAssigner
 {
     private IPanelStocker _stocker;
 
@@ -13,10 +13,11 @@ public class PanelAssigner : IPanelAssigner
         _stocker = stocker;
     }
     
-    public void Add(SignalPanel panel, Transform parent)
+    public void Add(IPanel panel, Transform parent)
     {
-        panel.transform.SetParent(parent, false);
-        var rect = panel.GetComponent<RectTransform>();
+        var _panel = panel as MonoBehaviour;
+        _panel.transform.SetParent(parent, false);
+        var rect = _panel.GetComponent<RectTransform>();
         _stocker.Add(rect);
     }
 

@@ -53,11 +53,11 @@ public class P2SceneInstaller : MonoInstaller
             .FromComponentInNewPrefab(bulletPrefab)
             .AsTransient();
 
-        Container.BindFactory<SignalPanel, DotSignalPanelFactory>()
+        Container.BindFactory<IPanel, DotSignalPanelFactory>()
             .FromComponentInNewPrefab(dotPanelPrefab)
             .AsTransient();
 
-        Container.BindFactory<SignalPanel, DashSignalPanelFactory>()
+        Container.BindFactory<IPanel, DashSignalPanelFactory>()
             .FromComponentInNewPrefab(dashPanelPrefab)
             .AsTransient();
 
