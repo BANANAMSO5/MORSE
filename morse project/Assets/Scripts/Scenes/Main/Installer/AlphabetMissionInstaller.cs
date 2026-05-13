@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class WordMissionInstaller : MonoInstaller
+public class AlphabetMissionInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
         Container.Bind<IFactorChecker>()
-            .To<WordChecker>()
+            .To<AlphabetChecker>()
             .AsSingle();
     }
 }

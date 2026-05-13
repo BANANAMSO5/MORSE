@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class SignalMission : MonoBehaviour, ISignalMission
+public class AlphabetMission : MonoBehaviour, IAlphabetMission
 {
     private IInputManager _inputManager;
-    private IMissionTracker _missionTracker;
+    private IFactorChecker _alphabetChecker;
 
     [Inject]
     public void Construct(
         IInputManager inputManager, 
-        IMissionTracker missionTracker
+        IFactorChecker alphabetChecker
     )
     {
         _inputManager = inputManager;
         _inputManager.OnFixChar += FixCharHandle;
-        _missionTracker = missionTracker;
+        _alphabetChecker = alphabetChecker;
     }
 
     // 
     public void FixCharHandle(InputChar inputChar)
     {
-        _missionTracker.AddProgress("mission_a");
+        _alphabetChecker.Check(inputChar);
     }
 }

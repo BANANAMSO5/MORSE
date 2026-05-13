@@ -6,12 +6,12 @@ using Zenject;
 public class WordMission : MonoBehaviour, IWordMission
 {
     private IInputManager _inputManager;
-    private IWordChecker _wordChecker;
+    private IFactorChecker _wordChecker;
 
     [Inject]
     public void Construct(
         IInputManager inputManager, 
-        IWordChecker wordChecker
+        IFactorChecker wordChecker
     )
     {
         _inputManager = inputManager;

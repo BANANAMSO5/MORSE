@@ -4,11 +4,11 @@ using System.Linq;
 using UnityEngine;
 using Zenject;
 
-public class WordChecker : IWordChecker
+public class WordChecker : IFactorChecker
 {
     private IMissionTracker _missionTracker;
     private string current = "";
-    private Dictionary<string, MissionDefinition> _words;
+    private Dictionary<string, MissionDefinition> _missions;
 
     [Inject]
     public void Construct(
@@ -17,7 +17,7 @@ public class WordChecker : IWordChecker
     )
     {
         _missionTracker = missionTracker;
-        _words = resolver.GetAll();
+        _missions = resolver.GetAll();
     }
 
     public void Check(InputChar input)
@@ -25,7 +25,7 @@ public class WordChecker : IWordChecker
         current += char.ToUpper(Consts.Alphabets[(int)input]);
 
         // 前方一致する単語があるか
-        bool hasPrefix = _words.Any(w => w.Value.Type.StartsWith(current));
+        bool hasPrefix = _missions.Any(w => w.Value.Target.Trim().StartsWith(current));
 
         if (!hasPrefix)
         {
@@ -34,7 +34,7 @@ public class WordChecker : IWordChecker
             return;
         }
 
-        var id = _words.First(w => w.Value.Type == current).Key;
+        var id = _missions.FirstOrDefault(w => w.Value.Target.Trim() == current).Key;
 
         if (id != null)
         {

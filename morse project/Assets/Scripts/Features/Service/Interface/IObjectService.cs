@@ -5,4 +5,6 @@ using UnityEngine;
 public interface IObjectService
 {
     void DestroyObject(GameObject obj);
+    Coroutine StartProcess(IEnumerator routine);
+    void StopProcess(Coroutine routine);
 }

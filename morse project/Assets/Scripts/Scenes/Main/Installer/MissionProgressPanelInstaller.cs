@@ -23,7 +23,10 @@ public class MissionProgressPanelInstaller : Installer<MissionProgressPanelData,
             .FromComponentInChildren().AsSingle();
             
         Container.Bind<TextMeshProUGUI>()
-            .FromComponentInChildren().AsSingle();
+            .FromComponentsInChildren(includeInactive: true)
+            .AsCached();
+        // Container.Bind<TextMeshProUGUI>()
+        //     .FromComponentInChildren().AsSingle();
 
         Container.Bind<IPanel>().To<MissionProgressPanel>().FromComponentInHierarchy().AsSingle();
     }

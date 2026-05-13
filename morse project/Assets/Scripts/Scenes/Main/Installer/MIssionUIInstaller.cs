@@ -14,6 +14,6 @@ public class MIssionUIInstaller : MonoInstaller
 
         Container.Bind<IPanelAssigner>().To<MissionPanelAssigner>().AsSingle();
         Container.Bind<IPanelStocker>().To<MissionPanelStocker>().AsSingle();
-        Container.Bind<IPanelAligner>().To<SignalPanelAligner>().AsSingle();
+        Container.Bind<IPanelDisplayer>().To<MissionPanelDisplayer>().AsSingle();
     }
 }

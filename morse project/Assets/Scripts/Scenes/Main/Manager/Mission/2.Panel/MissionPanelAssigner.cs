@@ -17,8 +17,11 @@ public class MissionPanelAssigner : IPanelAssigner
     {
         var monoPanel = panel as MonoBehaviour;
         monoPanel.transform.SetParent(parent, false);
+
+        // 一旦非表示にしてから渡す
         var rect = monoPanel.GetComponent<RectTransform>();
-        // _stocker.Add(rect);
+        rect.gameObject.SetActive(false);
+        _stocker.Add(rect);
     }
 
     public void Period()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class MissionDefinition
 {
     public string Id;
-    public string Type;
+    public string Target;
+    public string Text;
     public int[] Milestones;
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
+
 public class MissionTracker : IMissionTracker
 {
     private IMissionResolver _resolver;
@@ -20,6 +21,7 @@ public class MissionTracker : IMissionTracker
         _missionUIManager = missionUIManager;
     }
 
+    // TODO: 機能多いかも
     public void AddProgress(string missionId)
     {
         if (!progressMap.ContainsKey(missionId))
@@ -45,13 +47,16 @@ public class MissionTracker : IMissionTracker
             $"{missionId}: " +
             $"{progress.Count}/{target}");
 
+        // ミッションの経過パネル表示
+        _data.TargetText = definition.Text;
+        _data.Progress = progress.Count;
+        _data.Goal = target;
+        _missionUIManager.AddMissionProgress(_data);
+
         if (progress.Count >= target)
         {
             Debug.Log($"{missionId} 達成!");
-            _data.TargetText = "test";
-            _data.Progress = 0.5f;
-            _missionUIManager.AddMissionProgress(_data);
-
+            
             if (progress.MilestoneIndex <
                 definition.Milestones.Length - 1)
             {

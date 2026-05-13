@@ -23,10 +23,9 @@ public class MissionCsvLoader : IMissionCsvLoader
             var def = new MissionDefinition
             {
                 Id = cols[0],
-
-                Type = cols[1],
-
-                Milestones = cols[2]
+                Target = cols[1],
+                Text = cols[2],
+                Milestones = cols[3]
                     .Replace("\"", "")
                     .Split('|')
                     .Select(int.Parse)

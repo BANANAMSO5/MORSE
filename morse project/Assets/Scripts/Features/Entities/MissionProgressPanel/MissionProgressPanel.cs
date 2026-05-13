@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +12,18 @@ public class MissionProgressPanel : MonoBehaviour, IPanel
     public void Construct(
         MissionProgressPanelData data,
         Slider slider, 
-        TextMeshProUGUI text
+        List<TextMeshProUGUI> texts
     )
     {
-        Debug.Log("value:" + data.Progress);
-        slider.value = data.Progress;
-        text.text = data.TargetText;
+        slider.value = data.Progress / data.Goal;
+        
+        var descriptionText = texts.FirstOrDefault(t => t.name == "Description");
+        var progressText = texts.FirstOrDefault(t => t.name == "Progress");
+
+        if (descriptionText != null)
+            descriptionText.text = data.TargetText.Trim();
+
+        if (progressText != null)
+            progressText.text = data.Progress.ToString() + "/" + data.Goal.ToString();
     }
 }

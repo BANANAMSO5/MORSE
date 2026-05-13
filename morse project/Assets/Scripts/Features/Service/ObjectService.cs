@@ -8,4 +8,14 @@ public class ObjectService : MonoBehaviour, IObjectService
     {
         Destroy(obj);
     }
+
+    public Coroutine StartProcess(IEnumerator routine)
+    {
+        return StartCoroutine(routine);
+    }
+
+    public void StopProcess(Coroutine routine)
+    {
+        StopCoroutine(routine);
+    }
 }

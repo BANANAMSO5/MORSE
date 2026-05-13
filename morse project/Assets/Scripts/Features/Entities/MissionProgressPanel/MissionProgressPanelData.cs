@@ -6,4 +6,5 @@ public struct MissionProgressPanelData
 {
     public string TargetText;
     public float Progress;
+    public float Goal;
 }
