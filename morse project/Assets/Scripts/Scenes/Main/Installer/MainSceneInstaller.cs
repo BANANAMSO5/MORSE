@@ -39,10 +39,9 @@ public class MainSceneInstaller : MonoInstaller
             .FromComponentInNewPrefab(dashPanelPrefab)
             .AsTransient();
         
-        Container.BindFactory<float, IPanel, MissionProgressPanelFactory>()
-            .To<MissionProgressPanel>()
-            .FromComponentInNewPrefab(missionPanelPrefab)
-            .AsTransient();
+        Container.BindFactory<MissionProgressPanelData, IPanel, MissionProgressPanelFactory>()
+            .FromSubContainerResolve()
+            .ByNewPrefabInstaller<MissionProgressPanelInstaller>(missionPanelPrefab);
 
         
         

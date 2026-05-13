@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IMissionUIManager
 {
-    void AddMissionProgress();
+    void AddMissionProgress(MissionProgressPanelData data);
 }

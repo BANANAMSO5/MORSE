@@ -21,9 +21,9 @@ public class MissionUIManager : MonoBehaviour, IMissionUIManager
         _parent = parent;
     }
 
-    public void AddMissionProgress()
+    public void AddMissionProgress(MissionProgressPanelData data)
     {
-        IPanel panel = _factory.Create(0.5f);
+        IPanel panel = _factory.Create(data);
         _panelAssigner.Add(panel, _parent);
     }
 }

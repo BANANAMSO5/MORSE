@@ -3,6 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class MissionProgressPanelFactory : PlaceholderFactory<float, IPanel>
+public class MissionProgressPanelFactory : PlaceholderFactory<MissionProgressPanelData, IPanel>
 {
 }

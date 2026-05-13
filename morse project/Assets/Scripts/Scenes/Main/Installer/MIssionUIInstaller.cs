@@ -13,7 +13,7 @@ public class MIssionUIInstaller : MonoInstaller
             .FromInstance(parent);
 
         Container.Bind<IPanelAssigner>().To<MissionPanelAssigner>().AsSingle();
-        Container.Bind<IPanelStocker>().To<SignalPanelStocker>().AsSingle();
+        Container.Bind<IPanelStocker>().To<MissionPanelStocker>().AsSingle();
         Container.Bind<IPanelAligner>().To<SignalPanelAligner>().AsSingle();
     }
 }

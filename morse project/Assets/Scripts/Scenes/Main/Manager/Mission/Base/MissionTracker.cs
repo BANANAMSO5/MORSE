@@ -8,6 +8,7 @@ public class MissionTracker : IMissionTracker
     private IMissionResolver _resolver;
     private IMissionUIManager _missionUIManager;
     private Dictionary<string, MissionProgress> progressMap = new();
+    private MissionProgressPanelData _data;
 
     [Inject]
     public void Construct(
@@ -47,7 +48,9 @@ public class MissionTracker : IMissionTracker
         if (progress.Count >= target)
         {
             Debug.Log($"{missionId} 達成!");
-            _missionUIManager.AddMissionProgress();
+            _data.TargetText = "test";
+            _data.Progress = 0.5f;
+            _missionUIManager.AddMissionProgress(_data);
 
             if (progress.MilestoneIndex <
                 definition.Milestones.Length - 1)
