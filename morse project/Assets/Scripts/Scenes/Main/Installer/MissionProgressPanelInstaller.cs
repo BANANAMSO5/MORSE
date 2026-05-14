@@ -26,6 +26,6 @@ public class MissionProgressPanelInstaller : Installer<MissionProgressPanelData,
             .FromComponentsInChildren(includeInactive: true)
             .AsCached();
 
-        Container.Bind<IPanel>().To<MissionProgressPanel>().FromComponentOnRoot().AsSingle();
+        Container.Bind<IPanel>().To<MissionProgressPanel>().FromComponentInHierarchy().AsSingle();
     }
 }
