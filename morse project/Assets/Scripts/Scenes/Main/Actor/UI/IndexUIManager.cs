@@ -21,7 +21,6 @@ public class IndexUIManager : MonoBehaviour, IPointerClickHandler
     
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("click");
         _panelSlider.Slide(_panelState);
     }
 }
