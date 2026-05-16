@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public static class Consts
@@ -34,4 +35,8 @@ public static class Consts
         'Y',        // Y
         'Z',        // Z
     };
+
+    // TODO: あとでかえる
+    public static readonly string EncryptionKey = "YOUR_SECRET_KEY_32BYTE";
+    public static readonly string SaveDataPath = Path.Combine(Application.persistentDataPath, "save.dat");
 }

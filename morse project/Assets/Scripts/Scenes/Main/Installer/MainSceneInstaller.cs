@@ -44,11 +44,19 @@ public class MainSceneInstaller : MonoInstaller
             .ByNewPrefabInstaller<MissionProgressPanelInstaller>(missionPanelPrefab);
 
         
+
+        Container.Bind<IDataSaver>().To<DataSaver>().AsSingle();
+        Container.Bind<IDataLoader>().To<DataLoader>().AsSingle();
+        Container.Bind<IDataEncrypter>().To<DataEncrypter>().AsSingle();
+        Container.Bind<IDataDecrypter>().To<DataDecrypter>().AsSingle();
+        Container.Bind<IHMACManager>().To<HMACManager>().AsSingle();
         
+        Container.Bind<ISaveDataManager>().To<SaveDataManager>().AsSingle();
+        Container.Bind<IAutoSaveManager>().To<AutoSaveManager>().AsSingle();
+        Container.Bind<IInitLoadManager>().To<InitLoadManager>().AsSingle();
 
         
-
-        // mission
+        Container.BindInterfacesTo<GameInitializer>().AsSingle();
         
     }
 }

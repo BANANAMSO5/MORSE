@@ -91,7 +91,7 @@ public class P2SceneInstaller : MonoInstaller
             .FromComponentInHierarchy().AsSingle();
         
         // 純C#Managerなど
-        Container.BindInterfacesTo<GameInitializer>().AsSingle();
+        // Container.BindInterfacesTo<GameInitializer>().AsSingle();
         // Container.Bind<IBulletManager>().To<BulletManager>().AsSingle();
         Container.Bind<IPositionManager>().To<PositionManager>().AsSingle();
         Container.Bind<DamageEffectManager>().AsSingle();
